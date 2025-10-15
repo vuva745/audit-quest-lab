@@ -1,16 +1,22 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Search, Download, FileText } from "lucide-react";
+import { HashDisplay } from "@/components/HashDisplay";
+import { Search, Download, FileText, ExternalLink } from "lucide-react";
 
 export const ScanLogDetail = () => {
+  const [selectedScan, setSelectedScan] = useState<string | null>("A12-09");
+  
   const scans = [
-    { uid: "A12-09", time: "10-07 14:42", gps: "-1.319, 36.926", hash: "0x...verified", status: "verified" as const },
-    { uid: "B7-33", time: "10-07 14:38", gps: "-1.321, 36.930", hash: "0x...verified", status: "verified" as const },
-    { uid: "C4-88", time: "10-07 14:30", gps: "0xA7CF...8C22", hash: "Pending", status: "pending" as const },
-    { uid: "Z9-01", time: "10-07 14:25", gps: "0xF9C4B..F34D", hash: "Rejected", status: "rejected" as const }
+    { uid: "A12-09", time: "10-07 14:42", gps: "-1.319, 36.926", hash: "0xA7B3C89D42E1F5A8", status: "verified" as const, device: "Walking Billboard", sponsor: "Omega Cola" },
+    { uid: "B7-33", time: "10-07 14:38", gps: "-1.321, 36.930", hash: "0xB2F4D67C91A3E8B5", status: "verified" as const, device: "Bus Display", sponsor: "Tech Corp" },
+    { uid: "C4-88", time: "10-07 14:30", gps: "0xA7CF...8C22", hash: "0xC5E8A92B76D4F1C3", status: "pending" as const, device: "Mall Kiosk", sponsor: "Fashion Brand" },
+    { uid: "Z9-01", time: "10-07 14:25", gps: "0xF9C4B..F34D", hash: "0xF9C4B23A85D7E34D", status: "rejected" as const, device: "Street Poster", sponsor: "Food Chain" }
   ];
+
+  const currentScan = scans.find(s => s.uid === selectedScan) || scans[0];
 
   return (
     <div className="space-y-6">
@@ -47,12 +53,23 @@ export const ScanLogDetail = () => {
               </thead>
               <tbody>
                 {scans.map((scan, i) => (
-                  <tr key={i} className="border-b border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer">
-                    <td className="py-3 px-4 text-primary font-mono">{scan.uid}</td>
+                  <tr 
+                    key={i} 
+                    onClick={() => setSelectedScan(scan.uid)}
+                    className={`border-b border-primary/20 hover:bg-primary/10 transition-all cursor-pointer ${
+                      selectedScan === scan.uid ? 'bg-primary/10 border-primary/50' : ''
+                    }`}
+                  >
+                    <td className="py-3 px-4 text-primary font-mono font-semibold">{scan.uid}</td>
                     <td className="py-3 px-4 text-foreground">{scan.time}</td>
                     <td className="py-3 px-4 text-foreground font-mono text-sm">{scan.gps}</td>
                     <td className="py-3 px-4">
-                      <StatusBadge status={scan.status} label={scan.hash} />
+                      <div className="flex items-center gap-2">
+                        <StatusBadge status={scan.status} />
+                        {scan.status === 'verified' && (
+                          <HashDisplay hash={scan.hash} />
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -87,16 +104,16 @@ export const ScanLogDetail = () => {
           </div>
         </Card>
 
-        <Card className="p-6 border-primary/30 bg-card/50">
+        <Card className="p-6 border-primary/30 bg-card/50 animate-fade-in">
           <h2 className="text-xl font-semibold mb-4">Scan Details</h2>
           <div className="space-y-3">
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">UID:</span>
-              <span className="text-primary font-mono">A12-09</span>
+              <span className="text-primary font-mono font-bold">{currentScan.uid}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Device:</span>
-              <span className="text-foreground">Walking Billboard</span>
+              <span className="text-foreground">{currentScan.device}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Layer:</span>
@@ -104,7 +121,7 @@ export const ScanLogDetail = () => {
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Sponsor:</span>
-              <span className="text-foreground">Omega Cola</span>
+              <span className="text-foreground font-semibold">{currentScan.sponsor}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Campaign:</span>
@@ -112,11 +129,18 @@ export const ScanLogDetail = () => {
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Payout Link:</span>
-              <span className="text-success">€100 M-Pesa</span>
+              <span className="text-success font-semibold">€100 M-Pesa</span>
             </div>
+            {currentScan.status === 'verified' && (
+              <div className="flex justify-between py-2 border-b border-primary/20">
+                <span className="text-muted-foreground">Block Hash:</span>
+                <HashDisplay hash={currentScan.hash} short={false} />
+              </div>
+            )}
           </div>
 
-          <Button className="w-full mt-6" variant="default">
+          <Button className="w-full mt-6 group" variant="default">
+            <ExternalLink className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
             View Proof on Blockchain
           </Button>
 

@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Shield, AlertTriangle, Download } from "lucide-react";
+import { ProgressRing } from "@/components/ProgressRing";
+import { Shield, AlertTriangle, Download, Activity } from "lucide-react";
 
 export const SecurityLogs = () => {
   return (
@@ -103,26 +104,19 @@ export const SecurityLogs = () => {
           </h2>
           
           <div className="flex items-center gap-4 mb-4">
-            <div className="relative w-24 h-24">
-              <svg className="w-full h-full -rotate-90">
-                <circle cx="48" cy="48" r="40" className="stroke-muted fill-none" strokeWidth="8" />
-                <circle
-                  cx="48"
-                  cy="48"
-                  r="40"
-                  className="stroke-warning fill-none"
-                  strokeWidth="8"
-                  strokeDasharray={`${2 * Math.PI * 40 * 0.75} ${2 * Math.PI * 40}`}
-                />
-              </svg>
+            <div className="relative animate-pulse-glow">
+              <ProgressRing progress={75} size={100} strokeWidth={10} color="stroke-warning" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <AlertTriangle className="w-8 h-8 text-warning" />
+                <AlertTriangle className="w-8 h-8 text-warning animate-pulse" />
               </div>
             </div>
             
             <div>
               <p className="text-xl font-bold text-foreground">Monitoring Mode</p>
-              <p className="text-sm text-warning">IA detected</p>
+              <p className="text-sm text-warning flex items-center gap-2">
+                <Activity className="w-4 h-4 animate-pulse" />
+                IA detected
+              </p>
             </div>
           </div>
 

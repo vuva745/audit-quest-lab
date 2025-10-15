@@ -1,7 +1,9 @@
 import { StatCard } from "@/components/StatCard";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Activity, Trophy, Euro, FileCheck, TrendingUp } from "lucide-react";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
+import { LiveFeed } from "@/components/LiveFeed";
+import { Activity, Trophy, Euro, FileCheck, TrendingUp, MapPin } from "lucide-react";
 
 export const MainOverview = () => {
   return (
@@ -19,26 +21,61 @@ export const MainOverview = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          title="Registered Scans"
-          value="4,981,224"
-          icon={Activity}
-        />
-        <StatCard
-          title="Unique Winners Validated"
-          value="8,142"
-          icon={Trophy}
-        />
-        <StatCard
-          title="Released Via Escrow & M-Pesa"
-          value="€1,284,000"
-          icon={Euro}
-        />
-        <StatCard
-          title="Documents Signed & Verified"
-          value="27"
-          icon={FileCheck}
-        />
+        <Card className="p-6 border-primary/30 bg-card/50 backdrop-blur hover:border-primary/50 transition-all animate-fade-in">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground mb-2">Registered Scans</p>
+              <h3 className="text-3xl font-bold text-primary mb-1">
+                <AnimatedCounter end={4981224} />
+              </h3>
+            </div>
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+              <Activity className="w-6 h-6 text-primary" />
+            </div>
+          </div>
+        </Card>
+        
+        <Card className="p-6 border-primary/30 bg-card/50 backdrop-blur hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: "0.1s" }}>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground mb-2">Unique Winners Validated</p>
+              <h3 className="text-3xl font-bold text-primary mb-1">
+                <AnimatedCounter end={8142} />
+              </h3>
+            </div>
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+              <Trophy className="w-6 h-6 text-primary" />
+            </div>
+          </div>
+        </Card>
+        
+        <Card className="p-6 border-primary/30 bg-card/50 backdrop-blur hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground mb-2">Released Via Escrow & M-Pesa</p>
+              <h3 className="text-3xl font-bold text-primary mb-1">
+                <AnimatedCounter end={1284000} prefix="€" />
+              </h3>
+            </div>
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+              <Euro className="w-6 h-6 text-primary" />
+            </div>
+          </div>
+        </Card>
+        
+        <Card className="p-6 border-primary/30 bg-card/50 backdrop-blur hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: "0.3s" }}>
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <p className="text-sm text-muted-foreground mb-2">Documents Signed & Verified</p>
+              <h3 className="text-3xl font-bold text-primary mb-1">
+                <AnimatedCounter end={27} />
+              </h3>
+            </div>
+            <div className="p-3 rounded-lg bg-primary/10 border border-primary/30">
+              <FileCheck className="w-6 h-6 text-primary" />
+            </div>
+          </div>
+        </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -75,39 +112,33 @@ export const MainOverview = () => {
 
         <Card className="p-6 border-primary/30 bg-card/50">
           <h2 className="text-xl font-semibold mb-4">Live Audit Feed</h2>
-          <div className="space-y-3">
-            {[
-              { time: "14:02", text: "Block #4553 verified – 312 UID matches found" },
-              { time: "13:56", text: "Escrow release #124 approved = €46000" },
-              { time: "13:48", text: "New notary file uploaded signature validated" },
-              { time: "13:22", text: "System check passed hash integrity OK" }
-            ].map((item, i) => (
-              <div key={i} className="text-sm border-l-2 border-primary/50 pl-3 py-1">
-                <span className="text-primary font-mono">[{item.time}]</span>
-                <span className="text-muted-foreground ml-2">{item.text}</span>
-              </div>
-            ))}
-          </div>
+          <LiveFeed />
         </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="p-6 border-primary/30 bg-card/50">
-          <h2 className="text-xl font-semibold mb-4">Geo Heatmap</h2>
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <MapPin className="w-5 h-5 text-primary" />
+            Geo Heatmap
+          </h2>
           <div className="space-y-4">
             {[
-              { city: "Amsterdam", activity: 85 },
-              { city: "Dubai", activity: 60 },
-              { city: "Nairobi", activity: 45 }
+              { city: "Amsterdam", activity: 85, color: "bg-primary" },
+              { city: "Dubai", activity: 60, color: "bg-warning" },
+              { city: "Nairobi", activity: 45, color: "bg-success" }
             ].map((loc, i) => (
-              <div key={i}>
+              <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-foreground">{loc.city}</span>
-                  <span className="text-primary">{loc.activity}%</span>
+                  <span className="text-foreground flex items-center gap-2">
+                    <div className={`w-2 h-2 rounded-full ${loc.color} animate-pulse`} />
+                    {loc.city}
+                  </span>
+                  <span className="text-primary font-semibold">{loc.activity}%</span>
                 </div>
                 <div className="h-2 bg-muted rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-primary glow-sm"
+                    className={`h-full ${loc.color} glow-sm transition-all duration-1000`}
                     style={{ width: `${loc.activity}%` }}
                   />
                 </div>
