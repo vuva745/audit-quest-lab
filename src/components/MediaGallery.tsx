@@ -5,7 +5,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { 
   FileImage, 
@@ -13,6 +12,7 @@ import {
   Download, 
   Search, 
   Filter, 
+  Calendar, 
   MapPin, 
   User, 
   Eye, 
@@ -26,8 +26,17 @@ import {
   CheckCircle,
   AlertTriangle,
   Upload,
+  FileUp,
+  FolderOpen,
+  BarChart3,
+  Settings,
+  RefreshCw,
   Plus,
-  BarChart3
+  Trash2,
+  Edit,
+  Copy,
+  Share2,
+  ExternalLink
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
@@ -64,7 +73,7 @@ interface MediaItem {
   };
 }
 
-export const MediaGallery = () => {
+const MediaGallery = () => {
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   
@@ -120,101 +129,65 @@ export const MediaGallery = () => {
     
     const items: MediaItem[] = [];
     
-    for (let i = 0; i < 24; i++) { // Reduced from 36 to 24 items
-      const category = categories[Math.floor(Math.random() * categories.length)] as any;
-      const type = types[Math.floor(Math.random() * types.length)] as any;
-      const status = statuses[Math.floor(Math.random() * statuses.length)] as any;
+    for (let i = 0; i < 36; i++) {
+      const category = categories[Math.floor(Math.random() * categories.length)];
+      const type = types[Math.floor(Math.random() * types.length)];
+      const status = statuses[Math.floor(Math.random() * statuses.length)];
       const device = devices[Math.floor(Math.random() * devices.length)];
       const location = locations[Math.floor(Math.random() * locations.length)];
       const campaign = campaigns[Math.floor(Math.random() * campaigns.length)];
       const sponsor = sponsors[Math.floor(Math.random() * sponsors.length)];
       
-      const baseTimestamp = Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000;
+      const baseTimestamp = Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000; // Last 30 days
       const winnerId = `W${String(Math.floor(Math.random() * 10000)).padStart(4, '0')}`;
       const uid = `U${String(Math.floor(Math.random() * 100000)).padStart(5, '0')}`;
       
-      // Optimized image URLs with smaller dimensions for faster loading
-      const verificationPhotos = [
-        'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop&q=80'
-      ];
-      
-      const receiptPhotos = [
-        'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=300&fit=crop&q=80'
-      ];
-      
-      const locationPhotos = [
-        'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=400&h=300&fit=crop&q=80'
-      ];
-      
-      const qrCodePhotos = [
-        'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=400&h=300&fit=crop&q=80'
-      ];
-      
-      const identityPhotos = [
-        'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop&q=80'
-      ];
-      
-      const prizePhotos = [
-        'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop&q=80',
-        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop&q=80'
-      ];
-      
+      // Generate appropriate content based on category and type
       let title, description, url, prompt;
       
       switch (category) {
         case 'verification':
           title = 'Winner Verification Photo';
           description = 'AI-generated professional verification image';
-          url = verificationPhotos[Math.floor(Math.random() * verificationPhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=face`;
           prompt = 'Professional headshot, business attire, clean background, high quality portrait';
           break;
         case 'receipt':
           title = 'Prize Receipt Document';
           description = 'Digital receipt for prize claim';
-          url = receiptPhotos[Math.floor(Math.random() * receiptPhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=center`;
           prompt = 'Receipt document, printed text, clean white background, professional document';
           break;
         case 'location':
           title = 'Location Verification';
           description = 'Geographic location confirmation';
-          url = locationPhotos[Math.floor(Math.random() * locationPhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=center`;
           prompt = 'Urban landscape, recognizable landmark, clear sky, professional photography';
           break;
         case 'qr_code':
           title = 'QR Code Scan Result';
           description = 'QR code verification capture';
-          url = qrCodePhotos[Math.floor(Math.random() * qrCodePhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=center`;
           prompt = 'QR code on mobile phone screen, modern technology, clean interface';
           break;
         case 'identity':
           title = 'Identity Verification';
           description = 'ID document verification';
-          url = identityPhotos[Math.floor(Math.random() * identityPhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=center`;
           prompt = 'Official document, ID card, clean background, professional lighting';
           break;
         case 'prize':
           title = 'Prize Collection Photo';
           description = 'Winner with prize item';
-          url = prizePhotos[Math.floor(Math.random() * prizePhotos.length)];
+          url = `https://images.unsplash.com/photo-${1500000000000 + Math.floor(Math.random() * 100000000)}?w=800&h=600&fit=crop&crop=center`;
           prompt = 'Person holding product, celebration, clean background, professional photo';
           break;
-        default:
-          title = 'Media Item';
-          description = 'Media verification';
-          url = verificationPhotos[0];
-          prompt = 'Professional photo';
       }
       
       items.push({
         id: `media-${i + 1}`,
-        type,
-        category,
+        type: type as 'image' | 'video' | 'document',
+        category: category as any,
         title,
         description,
         url,
@@ -228,7 +201,7 @@ export const MediaGallery = () => {
         sponsorName: sponsor.name,
         aiGenerated: true,
         prompt,
-        confidence: Math.floor(Math.random() * 20) + 80,
+        confidence: Math.floor(Math.random() * 20) + 80, // 80-99%
         metadata: {
           device,
           location,
@@ -241,7 +214,7 @@ export const MediaGallery = () => {
           uploadSource: 'ai_generated'
         },
         verification: {
-          status,
+          status: status as any,
           method: 'AI-Powered Image Recognition',
           confidence: Math.floor(Math.random() * 20) + 80
         }
@@ -254,13 +227,12 @@ export const MediaGallery = () => {
   // Initialize media items
   useEffect(() => {
     setLoading(true);
-    // Reduced delay and optimized loading
     setTimeout(() => {
       const items = generateMediaItems();
       setMediaItems(items);
       setFilteredItems(items);
       setLoading(false);
-    }, 300); // Reduced from 1500ms to 300ms
+    }, 1500);
   }, []);
 
   // Filter items based on search and filters
@@ -334,10 +306,8 @@ export const MediaGallery = () => {
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    if (files.length > 0) {
-      setSelectedFiles(files);
-      setShowUploadDialog(true);
-    }
+    setSelectedFiles(files);
+    setShowUploadDialog(true);
   };
 
   const handleExecuteUpload = async () => {
@@ -345,11 +315,6 @@ export const MediaGallery = () => {
     
     setIsUploading(true);
     setUploadProgress(0);
-    
-    toast({
-      title: "Uploading Files",
-      description: `Uploading ${selectedFiles.length} files...`,
-    });
     
     try {
       // Simulate upload progress
@@ -362,12 +327,12 @@ export const MediaGallery = () => {
       const newItems: MediaItem[] = selectedFiles.map((file, index) => {
         const campaign = campaigns[Math.floor(Math.random() * campaigns.length)];
         const sponsor = sponsors[Math.floor(Math.random() * sponsors.length)];
-        const category = ['verification', 'receipt', 'location', 'qr_code', 'identity', 'prize'][Math.floor(Math.random() * 6)] as any;
+        const category = ['verification', 'receipt', 'location', 'qr_code', 'identity', 'prize'][Math.floor(Math.random() * 6)];
         
         return {
           id: `uploaded-${Date.now()}-${index}`,
           type: file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'document',
-          category,
+          category: category as any,
           title: file.name.replace(/\.[^/.]+$/, ""),
           description: `Uploaded ${file.type.split('/')[0]} file`,
           url: URL.createObjectURL(file),
@@ -403,7 +368,7 @@ export const MediaGallery = () => {
       
       toast({
         title: "Upload Complete",
-        description: `Successfully uploaded ${newItems.length} files`,
+        description: `Successfully uploaded ${selectedFiles.length} files`,
       });
       
     } catch (error) {
@@ -420,11 +385,6 @@ export const MediaGallery = () => {
 
   const handleExportAll = async () => {
     setIsExporting(true);
-    
-    toast({
-      title: "Exporting Data",
-      description: "Preparing export files...",
-    });
     
     try {
       // Create comprehensive export data
@@ -504,16 +464,14 @@ export const MediaGallery = () => {
       window.URL.revokeObjectURL(jsonUrl);
       
       // Download CSV
-      setTimeout(() => {
-        const csvUrl = window.URL.createObjectURL(csvBlob);
-        const csvLink = document.createElement('a');
-        csvLink.href = csvUrl;
-        csvLink.download = `media-gallery-export-${timestamp}.csv`;
-        document.body.appendChild(csvLink);
-        csvLink.click();
-        document.body.removeChild(csvLink);
-        window.URL.revokeObjectURL(csvUrl);
-      }, 500);
+      const csvUrl = window.URL.createObjectURL(csvBlob);
+      const csvLink = document.createElement('a');
+      csvLink.href = csvUrl;
+      csvLink.download = `media-gallery-export-${timestamp}.csv`;
+      document.body.appendChild(csvLink);
+      csvLink.click();
+      document.body.removeChild(csvLink);
+      window.URL.revokeObjectURL(csvUrl);
       
       setShowExportDialog(false);
       
@@ -548,51 +506,6 @@ export const MediaGallery = () => {
     });
   };
 
-  const handleBulkDownload = async () => {
-    if (filteredItems.length === 0) {
-      toast({
-        title: "No Items to Download",
-        description: "No media items available for download",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    toast({
-      title: "Bulk Download Started",
-      description: `Downloading ${filteredItems.length} media items...`,
-    });
-
-    let successCount = 0;
-    let errorCount = 0;
-
-    for (let i = 0; i < filteredItems.length; i++) {
-      const item = filteredItems[i];
-      
-      try {
-        // Download each item with a delay to prevent browser blocking
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        await handleDownloadItem(item);
-        successCount++;
-        
-        // Update progress
-        toast({
-          title: "Bulk Download Progress",
-          description: `Downloaded ${i + 1}/${filteredItems.length} items`,
-        });
-        
-      } catch (error) {
-        console.error(`Error downloading ${item.title}:`, error);
-        errorCount++;
-      }
-    }
-
-    toast({
-      title: "Bulk Download Complete",
-      description: `Successfully downloaded ${successCount} items. ${errorCount} failed.`,
-    });
-  };
-
   const handleDownloadItem = async (item: MediaItem) => {
     toast({
       title: "Downloading Media",
@@ -600,106 +513,117 @@ export const MediaGallery = () => {
     });
     
     try {
+      // Create comprehensive media package
+      const mediaPackage = {
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        type: item.type,
+        category: item.category,
+        url: item.url,
+        timestamp: item.timestamp,
+        winnerId: item.winnerId,
+        uid: item.uid,
+        aiGenerated: item.aiGenerated,
+        prompt: item.prompt,
+        confidence: item.confidence,
+        metadata: item.metadata,
+        verification: item.verification,
+        downloadedAt: new Date().toISOString()
+      };
+      
+      // Create JSON file
+      const jsonContent = JSON.stringify(mediaPackage, null, 2);
+      const jsonBlob = new Blob([jsonContent], { type: 'application/json' });
+      
+      // Create HTML report
+      const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Report - ${item.title}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; border-bottom: 2px solid #007bff; padding-bottom: 20px; margin-bottom: 30px; }
+        .media-section { margin-bottom: 30px; }
+        .media-image { width: 100%; max-width: 600px; height: auto; border-radius: 8px; margin: 20px 0; }
+        .metadata { background: #e9ecef; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .verification { background: #d4edda; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .ai-badge { background: #007bff; color: white; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Media Report</h1>
+            <p><strong>Title:</strong> ${item.title}</p>
+            <p><strong>Winner ID:</strong> ${item.winnerId} | <strong>UID:</strong> ${item.uid}</p>
+            <p><strong>Downloaded:</strong> ${new Date().toLocaleString()}</p>
+        </div>
+        
+        <div class="media-section">
+            <h2>Media Content</h2>
+            <img src="${item.url}" alt="${item.description}" class="media-image" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+'">
+            <p><strong>Description:</strong> ${item.description}</p>
+            ${item.aiGenerated ? '<p><span class="ai-badge">AI Generated</span></p>' : ''}
+            ${item.prompt ? `<p><strong>AI Prompt:</strong> ${item.prompt}</p>` : ''}
+        </div>
+        
+        <div class="verification">
+            <h2>Verification Details</h2>
+            <p><strong>Status:</strong> ${item.verification.status.toUpperCase()}</p>
+            <p><strong>Method:</strong> ${item.verification.method}</p>
+            <p><strong>Confidence:</strong> ${item.verification.confidence}%</p>
+            <p><strong>Timestamp:</strong> ${new Date(item.timestamp).toLocaleString()}</p>
+        </div>
+        
+        <div class="metadata">
+            <h2>Metadata</h2>
+            <p><strong>Device:</strong> ${item.metadata.device}</p>
+            <p><strong>Location:</strong> ${item.metadata.location}</p>
+            <p><strong>File Size:</strong> ${item.metadata.fileSize}</p>
+            ${item.metadata.dimensions ? `<p><strong>Dimensions:</strong> ${item.metadata.dimensions.width}x${item.metadata.dimensions.height}</p>` : ''}
+            ${item.metadata.coordinates ? `<p><strong>Coordinates:</strong> ${item.metadata.coordinates.lat.toFixed(4)}, ${item.metadata.coordinates.lng.toFixed(4)}</p>` : ''}
+        </div>
+    </div>
+</body>
+</html>`;
+      
+      const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+      
+      // Download both files
       const timestamp = new Date().toISOString().split('T')[0];
-      let downloadSuccess = false;
       
-      // Download the actual image/media file
-      try {
-        const response = await fetch(item.url);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const blob = await response.blob();
-        
-        // Determine file extension based on type and content
-        let extension = 'jpg';
-        if (item.type === 'video') {
-          extension = 'mp4';
-        } else if (item.type === 'document') {
-          extension = 'pdf';
-        } else if (blob.type.includes('png')) {
-          extension = 'png';
-        } else if (blob.type.includes('gif')) {
-          extension = 'gif';
-        } else if (blob.type.includes('webp')) {
-          extension = 'webp';
-        } else if (blob.type.includes('svg')) {
-          extension = 'svg';
-        }
-        
-        // Create filename with better formatting
-        const cleanTitle = item.title.replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, '-');
-        const filename = `${item.winnerId}-${cleanTitle}-${timestamp}.${extension}`;
-        
-        // Download media file
-        const mediaUrl = window.URL.createObjectURL(blob);
-        const mediaLink = document.createElement('a');
-        mediaLink.href = mediaUrl;
-        mediaLink.download = filename;
-        mediaLink.style.display = 'none';
-        document.body.appendChild(mediaLink);
-        mediaLink.click();
-        document.body.removeChild(mediaLink);
-        window.URL.revokeObjectURL(mediaUrl);
-        
-        downloadSuccess = true;
-        
-      } catch (fetchError) {
-        console.error('Error fetching media:', fetchError);
-        // If fetch fails, try opening in new tab as fallback
-        window.open(item.url, '_blank');
-        toast({
-          title: "Download Fallback",
-          description: "Media opened in new tab due to download restrictions",
-        });
-      }
+      // Download JSON
+      const jsonUrl = window.URL.createObjectURL(jsonBlob);
+      const jsonLink = document.createElement('a');
+      jsonLink.href = jsonUrl;
+      jsonLink.download = `media-${item.id}-${timestamp}.json`;
+      document.body.appendChild(jsonLink);
+      jsonLink.click();
+      document.body.removeChild(jsonLink);
+      window.URL.revokeObjectURL(jsonUrl);
       
-      // Always download metadata JSON
-      setTimeout(() => {
-        const mediaPackage = {
-          id: item.id,
-          title: item.title,
-          description: item.description,
-          type: item.type,
-          category: item.category,
-          url: item.url,
-          timestamp: item.timestamp,
-          winnerId: item.winnerId,
-          uid: item.uid,
-          campaignName: item.campaignName,
-          sponsorName: item.sponsorName,
-          aiGenerated: item.aiGenerated,
-          prompt: item.prompt,
-          confidence: item.confidence,
-          metadata: item.metadata,
-          verification: item.verification,
-          downloadedAt: new Date().toISOString(),
-          downloadStatus: downloadSuccess ? 'success' : 'fallback'
-        };
-        
-        const jsonContent = JSON.stringify(mediaPackage, null, 2);
-        const jsonBlob = new Blob([jsonContent], { type: 'application/json' });
-        
-        const jsonUrl = window.URL.createObjectURL(jsonBlob);
-        const jsonLink = document.createElement('a');
-        jsonLink.href = jsonUrl;
-        jsonLink.download = `${item.winnerId}-metadata-${timestamp}.json`;
-        jsonLink.style.display = 'none';
-        document.body.appendChild(jsonLink);
-        jsonLink.click();
-        document.body.removeChild(jsonLink);
-        window.URL.revokeObjectURL(jsonUrl);
-      }, 500);
+      // Download HTML report
+      const htmlUrl = window.URL.createObjectURL(htmlBlob);
+      const htmlLink = document.createElement('a');
+      htmlLink.href = htmlUrl;
+      htmlLink.download = `media-report-${item.id}-${timestamp}.html`;
+      document.body.appendChild(htmlLink);
+      htmlLink.click();
+      document.body.removeChild(htmlLink);
+      window.URL.revokeObjectURL(htmlUrl);
       
-      if (downloadSuccess) {
-        toast({
-          title: "Download Complete",
-          description: `Media and metadata downloaded for ${item.title}`,
-        });
-      }
+      toast({
+        title: "Download Complete",
+        description: `Media package downloaded for ${item.title}`,
+      });
       
     } catch (error) {
-      console.error('Download error:', error);
+      console.error('Error downloading media:', error);
       toast({
         title: "Download Error",
         description: "Failed to download media. Please try again.",
@@ -728,54 +652,28 @@ export const MediaGallery = () => {
 
   if (loading) {
     return (
-      <div className="space-y-6 bg-background">
-        {/* Header Skeleton */}
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="h-8 w-48 bg-gray-200 rounded animate-pulse mb-2"></div>
-            <div className="h-4 w-64 bg-gray-200 rounded animate-pulse"></div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="h-6 w-16 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-10 w-32 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-10 w-28 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-10 w-32 bg-gray-200 rounded animate-pulse"></div>
-          </div>
-        </div>
-
-        {/* Quick Filters Skeleton */}
-        <div className="h-20 bg-gray-200 rounded animate-pulse"></div>
-
-        {/* Media Grid Skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="bg-gray-200 rounded-lg animate-pulse">
-              <div className="h-48 w-full bg-gray-300"></div>
-              <div className="p-4 space-y-2">
-                <div className="h-4 w-3/4 bg-gray-300 rounded"></div>
-                <div className="h-3 w-full bg-gray-300 rounded"></div>
-                <div className="h-3 w-2/3 bg-gray-300 rounded"></div>
-                <div className="flex gap-2 mt-3">
-                  <div className="h-8 w-16 bg-gray-300 rounded"></div>
-                  <div className="h-8 w-16 bg-gray-300 rounded"></div>
-                </div>
-              </div>
-            </div>
-          ))}
+      <div className="flex items-center justify-center py-12">
+        <div className="text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading media gallery...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 bg-background">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-primary">Media Gallery</h1>
-          <p className="text-muted-foreground">Verification Media Collection</p>
+          <p className="text-muted-foreground">AI-Generated Verification Media Collection</p>
         </div>
         <div className="flex items-center gap-3">
+          <Badge variant="outline" className="gap-1">
+            <Sparkles className="w-3 h-3" />
+            AI Generated
+          </Badge>
           <Badge variant="outline">
             {filteredItems.length} Items
           </Badge>
@@ -783,13 +681,9 @@ export const MediaGallery = () => {
             <Upload className="w-4 h-4 mr-2" />
             Upload Media
           </Button>
-          <Button variant="outline" onClick={handleBulkDownload} disabled={filteredItems.length === 0}>
-            <Download className="w-4 h-4 mr-2" />
-            Download All
-          </Button>
           <Button variant="outline" onClick={() => setShowExportDialog(true)}>
             <Download className="w-4 h-4 mr-2" />
-            Export Data
+            Export All
           </Button>
           <Button variant="outline" onClick={() => setShowFilterDialog(true)}>
             <Filter className="w-4 h-4 mr-2" />
@@ -877,18 +771,27 @@ export const MediaGallery = () => {
                 src={item.url}
                 alt={item.description}
                 className="w-full h-48 object-cover"
-                loading="lazy"
-                decoding="async"
                 onError={(e) => {
                   e.currentTarget.src = `https://via.placeholder.com/400x300/cccccc/666666?text=${item.type.toUpperCase()}`;
                 }}
               />
+              <div className="absolute top-2 right-2 flex gap-1">
+                {item.aiGenerated && (
+                  <Badge className="bg-blue-500 text-white text-xs">
+                    <Sparkles className="w-3 h-3 mr-1" />
+                    AI
+                  </Badge>
+                )}
+                <Badge variant="outline" className="text-xs">
+                  {getTypeIcon(item.type)}
+                </Badge>
+              </div>
               <div className="absolute bottom-2 left-2">
                 <div className="flex items-center gap-1 bg-black/70 text-white px-2 py-1 rounded text-xs">
                   {getStatusIcon(item.verification.status)}
                   {item.verification.status.toUpperCase()}
-            </div>
-            </div>
+                </div>
+              </div>
             </div>
             <div className="p-4">
               <h3 className="font-semibold text-sm mb-1 truncate">{item.title}</h3>
@@ -897,15 +800,15 @@ export const MediaGallery = () => {
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
                   <span className="font-mono">{item.winnerId}</span>
                   <span>{new Date(item.timestamp).toLocaleDateString()}</span>
-          </div>
-                <div className="flex items-center justify-between text-xs gap-2">
-                  <Badge variant="outline" className="text-xs px-1 py-0 truncate flex-1">
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <Badge variant="outline" className="text-xs px-1 py-0">
                     {item.campaignName}
                   </Badge>
-                  <Badge variant="secondary" className="text-xs px-1 py-0 truncate flex-1">
+                  <Badge variant="secondary" className="text-xs px-1 py-0">
                     {item.sponsorName}
                   </Badge>
-              </div>
+                </div>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -947,6 +850,12 @@ export const MediaGallery = () => {
             <DialogTitle className="flex items-center gap-2">
               {selectedItem && getTypeIcon(selectedItem.type)}
               {selectedItem?.title}
+              {selectedItem?.aiGenerated && (
+                <Badge className="bg-blue-500 text-white">
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  AI Generated
+                </Badge>
+              )}
             </DialogTitle>
             <DialogDescription>
               {selectedItem?.description}
@@ -961,8 +870,6 @@ export const MediaGallery = () => {
                   src={selectedItem.url}
                   alt={selectedItem.description}
                   className="max-w-full max-h-96 mx-auto rounded-lg shadow-lg"
-                  loading="eager"
-                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.src = `https://via.placeholder.com/600x400/cccccc/666666?text=${selectedItem.type.toUpperCase()}`;
                   }}
@@ -974,7 +881,7 @@ export const MediaGallery = () => {
                 <Card className="p-4">
                   <h3 className="font-semibold mb-3 flex items-center gap-2">
                     <User className="w-4 h-4" />
-                    Winner & Campaign Information
+                    Winner Information
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
@@ -986,16 +893,12 @@ export const MediaGallery = () => {
                       <span className="font-mono">{selectedItem.uid}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Campaign:</span>
-                      <span>{selectedItem.campaignName}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Sponsor:</span>
-                      <span>{selectedItem.sponsorName}</span>
-                    </div>
-                    <div className="flex justify-between">
                       <span className="text-muted-foreground">Category:</span>
                       <span className="capitalize">{selectedItem.category.replace('_', ' ')}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-muted-foreground">Type:</span>
+                      <span className="capitalize">{selectedItem.type}</span>
                     </div>
                   </div>
                 </Card>
@@ -1054,6 +957,31 @@ export const MediaGallery = () => {
                     )}
                   </div>
                 </Card>
+
+                {selectedItem.aiGenerated && (
+                  <Card className="p-4">
+                    <h3 className="font-semibold mb-3 flex items-center gap-2">
+                      <Sparkles className="w-4 h-4" />
+                      AI Generation
+                    </h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Generated:</span>
+                        <span>Yes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Confidence:</span>
+                        <span>{selectedItem.confidence}%</span>
+                      </div>
+                      {selectedItem.prompt && (
+                        <div>
+                          <span className="text-muted-foreground">Prompt:</span>
+                          <p className="mt-1 p-2 bg-gray-50 rounded text-xs">{selectedItem.prompt}</p>
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                )}
               </div>
             </div>
           )}
@@ -1115,9 +1043,14 @@ export const MediaGallery = () => {
             {isUploading && (
               <div className="space-y-2">
                 <Label>Upload Progress</Label>
-                <Progress value={uploadProgress} className="w-full" />
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div 
+                    className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                    style={{ width: `${uploadProgress}%` }}
+                  ></div>
+                </div>
                 <p className="text-sm text-muted-foreground">{uploadProgress}% complete</p>
-          </div>
+              </div>
             )}
             
             <div className="flex items-center gap-4">
@@ -1198,7 +1131,7 @@ export const MediaGallery = () => {
                   </div>
                   <div className="flex justify-between">
                     <span>Campaign:</span>
-                    <span className="truncate max-w-[120px]">{filterCampaign === 'all' ? 'All' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</span>
+                    <span>{filterCampaign === 'all' ? 'All' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Status:</span>
@@ -1273,7 +1206,12 @@ export const MediaGallery = () => {
                     <SelectItem value="all">All Campaigns</SelectItem>
                     {campaigns.map(campaign => (
                       <SelectItem key={campaign.id} value={campaign.id}>
-                        {campaign.name}
+                        <div className="flex items-center justify-between w-full">
+                          <span>{campaign.name}</span>
+                          <Badge variant={campaign.status === 'active' ? 'default' : 'secondary'} className="ml-2 text-xs">
+                            {campaign.status}
+                          </Badge>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -1290,7 +1228,10 @@ export const MediaGallery = () => {
                     <SelectItem value="all">All Sponsors</SelectItem>
                     {sponsors.map(sponsor => (
                       <SelectItem key={sponsor.id} value={sponsor.id}>
-                        {sponsor.name}
+                        <div className="flex items-center justify-between w-full">
+                          <span>{sponsor.name}</span>
+                          <span className="text-xs text-muted-foreground ml-2">{sponsor.budget}</span>
+                        </div>
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -1326,7 +1267,7 @@ export const MediaGallery = () => {
               </div>
             </div>
           </div>
-
+          
           <DialogFooter>
             <Button variant="outline" onClick={handleClearFilters}>
               <X className="w-4 h-4 mr-2" />

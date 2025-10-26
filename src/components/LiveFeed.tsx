@@ -7,6 +7,16 @@ interface FeedItem {
   type: "info" | "success" | "warning";
 }
 
+interface LiveFeedProps {
+  activities?: Array<{
+    id: string;
+    type: string;
+    message: string;
+    timestamp: string;
+    status: 'success' | 'warning' | 'error';
+  }>;
+}
+
 const initialFeed: FeedItem[] = [
   { time: "14:02", text: "Block #4553 verified – 312 UID matches found", type: "success" },
   { time: "13:56", text: "Escrow release #124 approved = €46000", type: "success" },
@@ -14,8 +24,23 @@ const initialFeed: FeedItem[] = [
   { time: "13:22", text: "System check passed hash integrity OK", type: "success" }
 ];
 
-export const LiveFeed = () => {
+export const LiveFeed = ({ activities }: LiveFeedProps) => {
   const [feed, setFeed] = useState<FeedItem[]>(initialFeed);
+
+  useEffect(() => {
+    if (activities && activities.length > 0) {
+      const formattedActivities = activities.slice(0, 4).map(activity => ({
+        time: new Date(activity.timestamp).toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          hour12: false 
+        }),
+        text: activity.message,
+        type: activity.status === 'error' ? 'warning' : activity.status as 'info' | 'success' | 'warning'
+      }));
+      setFeed(formattedActivities);
+    }
+  }, [activities]);
 
   useEffect(() => {
     const interval = setInterval(() => {

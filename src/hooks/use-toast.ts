@@ -3,7 +3,8 @@ import * as React from "react";
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 1000000;
+const TOAST_REMOVE_DELAY = 400; // Reduced from 1000ms to 400ms for faster disappear
+const TOAST_DURATION = 3000; // Toast will display for 3 seconds before auto-dismissing
 
 type ToasterToast = ToastProps & {
   id: string;
@@ -66,6 +67,14 @@ const addToRemoveQueue = (toastId: string) => {
   }, TOAST_REMOVE_DELAY);
 
   toastTimeouts.set(toastId, timeout);
+};
+
+const scheduleDismiss = (toastId: string) => {
+  const timeout = setTimeout(() => {
+    dispatch({ type: "DISMISS_TOAST", toastId: toastId });
+  }, TOAST_DURATION);
+
+  toastTimeouts.set(`dismiss-${toastId}`, timeout);
 };
 
 export const reducer = (state: State, action: Action): State => {
@@ -150,11 +159,15 @@ function toast({ ...props }: Toast) {
       ...props,
       id,
       open: true,
+      duration: TOAST_DURATION,
       onOpenChange: (open) => {
         if (!open) dismiss();
       },
     },
   });
+
+  // Schedule automatic dismissal after TOAST_DURATION
+  scheduleDismiss(id);
 
   return {
     id: id,

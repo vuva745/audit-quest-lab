@@ -1,8 +1,39 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Activity } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { CheckCircle2, Activity, RefreshCw, Key, FileText } from "lucide-react";
 
 export const DataBridge = () => {
+  const { toast } = useToast();
+
+  // Button handlers
+  const handleSyncDataNow = () => {
+    toast({
+      title: "Syncing Data",
+      description: "Synchronizing data between all systems...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Sync Complete",
+        description: "All data has been synchronized successfully",
+      });
+    }, 3000);
+  };
+
+  const handleAPIKeys = () => {
+    toast({
+      title: "API Keys Management",
+      description: "Opening API keys configuration panel...",
+    });
+  };
+
+  const handleViewLogs = () => {
+    toast({
+      title: "Viewing Logs",
+      description: "Opening system logs viewer...",
+    });
+  };
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -11,9 +42,18 @@ export const DataBridge = () => {
           <p className="text-muted-foreground">Live data link between NeCodr™, Blockchain and external CRM systems</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline">Sync Data Now</Button>
-          <Button variant="outline">API Keys</Button>
-          <Button variant="default" className="glow-sm">View Logs</Button>
+          <Button variant="outline" onClick={handleSyncDataNow}>
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Sync Data Now
+          </Button>
+          <Button variant="outline" onClick={handleAPIKeys}>
+            <Key className="w-4 h-4 mr-2" />
+            API Keys
+          </Button>
+          <Button variant="default" className="glow-sm" onClick={handleViewLogs}>
+            <FileText className="w-4 h-4 mr-2" />
+            View Logs
+          </Button>
           <div className="flex items-center gap-2 px-4 py-2 border border-success/50 rounded bg-success/10">
             <CheckCircle2 className="w-4 h-4 text-success" />
             <span className="text-success text-sm font-semibold">All Nodes Synced</span>

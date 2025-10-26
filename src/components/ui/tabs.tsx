@@ -13,6 +13,7 @@ const TabsList = React.forwardRef<
     ref={ref}
     className={cn(
       "inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground",
+      "border border-cyan-500/20 shadow-[0_0_8px_rgba(102,204,255,0.2)]",
       className,
     )}
     {...props}
@@ -27,7 +28,11 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+      "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all",
+      "border border-cyan-500/30 shadow-[0_0_8px_rgba(102,204,255,0.15)]",
+      "data-[state=active]:bg-cyan-500/10 data-[state=active]:text-cyan-300 data-[state=active]:shadow-[0_0_15px_rgba(102,204,255,0.4)] data-[state=active]:border-cyan-400 data-[state=active]:font-semibold",
+      "hover:shadow-[0_0_12px_rgba(102,204,255,0.25)] hover:border-cyan-400/50",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500/50 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
       className,
     )}
     {...props}

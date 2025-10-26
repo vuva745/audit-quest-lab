@@ -1,0 +1,288 @@
+/* Neon-Dark Theme for Audit Dashboard */
+:root {
+  /* Neon-Dark Gradient Colors */
+  --neon-dark-bg-start: #0B0E16;
+  --neon-dark-bg-end: #1A1F3A;
+  --neon-dark-card: #1E293B;
+  --neon-dark-border: #334155;
+  
+  /* Neon Glow Colors */
+  --neon-blue: #6CF;
+  --neon-purple: #A855F7;
+  --neon-green: #10B981;
+  --neon-orange: #F59E0B;
+  --neon-red: #EF4444;
+  
+  /* Text Colors */
+  --neon-text-primary: #F8FAFC;
+  --neon-text-secondary: #CBD5E1;
+  --neon-text-muted: #64748B;
+  
+  /* Animation */
+  --neon-pulse-duration: 1.8s;
+  --neon-pulse-easing: ease-in-out;
+}
+
+/* Base Neon-Dark Theme */
+.neon-dark {
+  background: linear-gradient(135deg, var(--neon-dark-bg-start) 0%, var(--neon-dark-bg-end) 100%);
+  color: var(--neon-text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 600;
+}
+
+/* Neon Glow Effects */
+.neon-glow-blue {
+  box-shadow: 0 0 12px rgba(102, 204, 255, 0.3);
+  border: 1px solid rgba(102, 204, 255, 0.5);
+}
+
+.neon-glow-purple {
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+  border: 1px solid rgba(168, 85, 247, 0.5);
+}
+
+.neon-glow-green {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.neon-glow-orange {
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+}
+
+.neon-glow-red {
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+}
+
+/* Pulse Animation */
+.neon-pulse {
+  animation: neonPulse var(--neon-pulse-duration) var(--neon-pulse-easing) infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+/* Card Styles */
+.neon-card {
+  background: var(--neon-dark-card);
+  border: 1px solid var(--neon-dark-border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.neon-card:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 20px rgba(102, 204, 255, 0.2);
+}
+
+/* Button Styles */
+.neon-button {
+  background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-button:hover {
+  box-shadow: 0 0 20px rgba(102, 204, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.neon-button:active {
+  transform: translateY(0);
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.neon-button:hover::before {
+  left: 100%;
+}
+
+/* Status Indicators */
+.neon-status-online {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+}
+
+.neon-status-offline {
+  color: var(--neon-red);
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+}
+
+.neon-status-warning {
+  color: var(--neon-orange);
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+/* Data Flow Arrows */
+.neon-flow-arrow {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+  border-radius: 1px;
+}
+
+.neon-flow-arrow::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: -4px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid var(--neon-purple);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.neon-flow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-blue);
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+/* Grid Layouts */
+.neon-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.neon-grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.neon-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.neon-grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+  .neon-grid-2,
+  .neon-grid-3,
+  .neon-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Typography */
+.neon-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--neon-text-primary);
+  text-shadow: 0 0 10px rgba(102, 204, 255, 0.3);
+}
+
+.neon-subheading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--neon-text-secondary);
+}
+
+.neon-text {
+  font-size: 0.875rem;
+  color: var(--neon-text-muted);
+  line-height: 1.5;
+}
+
+/* Loading States */
+.neon-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.neon-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(102, 204, 255, 0.1), transparent);
+  animation: neonLoading 2s infinite;
+}
+
+@keyframes neonLoading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Scrollbar Styling */
+.neon-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.neon-scrollbar::-webkit-scrollbar-track {
+  background: var(--neon-dark-card);
+  border-radius: 4px;
+}
+
+.neon-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--neon-blue);
+  border-radius: 4px;
+}
+
+.neon-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple);
+}
+
+/* Focus States */
+.neon-focus:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 204, 255, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .neon-card {
+    padding: 16px;
+  }
+  
+  .neon-heading {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .neon-card {
+    padding: 12px;
+  }
+  
+  .neon-button {
+    padding: 10px 20px;
+    font-size: 0.875rem;
+  }
+}
