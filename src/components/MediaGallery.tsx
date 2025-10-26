@@ -666,8 +666,8 @@ const MediaGallery = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Media Gallery</h1>
-          <p className="text-muted-foreground">AI-Generated Verification Media Collection</p>
+          <h1 className="text-3xl font-bold text-primary text-neon">Media Gallery</h1>
+          <p className="text-muted-foreground text-neon-sm">AI-Generated Verification Media Collection</p>
         </div>
         <div className="flex items-center gap-3">
           <Badge variant="outline" className="gap-1">
@@ -693,8 +693,8 @@ const MediaGallery = () => {
       </div>
 
       {/* Quick Filters */}
-      <Card className="p-4">
-        <div className="flex flex-wrap gap-4">
+      <Card className="p-4 bg-card/50 border-cyan-500/20">
+                  <div className="flex flex-wrap gap-4">
           <div className="flex-1 min-w-[200px]">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
@@ -702,7 +702,7 @@ const MediaGallery = () => {
                 placeholder="Search media, campaigns, sponsors..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 bg-background/50 border-cyan-500/30 text-neon-sm placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -765,7 +765,7 @@ const MediaGallery = () => {
       {/* Media Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filteredItems.map((item) => (
-          <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+          <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow bg-card/50 border-cyan-500/20">
             <div className="relative">
               <img
                 src={item.url}
@@ -787,19 +787,19 @@ const MediaGallery = () => {
                 </Badge>
               </div>
               <div className="absolute bottom-2 left-2">
-                <div className="flex items-center gap-1 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                <div className="flex items-center gap-1 bg-black/70 text-white px-2 py-1 rounded text-xs text-neon-sm">
                   {getStatusIcon(item.verification.status)}
                   {item.verification.status.toUpperCase()}
                 </div>
               </div>
             </div>
             <div className="p-4">
-              <h3 className="font-semibold text-sm mb-1 truncate">{item.title}</h3>
-              <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{item.description}</p>
+              <h3 className="font-semibold text-sm mb-1 truncate text-neon-sm">{item.title}</h3>
+              <p className="text-xs text-muted-foreground mb-2 line-clamp-2 text-neon-sm">{item.description}</p>
               <div className="space-y-1 mb-3">
                 <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="font-mono">{item.winnerId}</span>
-                  <span>{new Date(item.timestamp).toLocaleDateString()}</span>
+                  <span className="font-mono text-neon-sm">{item.winnerId}</span>
+                  <span className="text-neon-sm">{new Date(item.timestamp).toLocaleDateString()}</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
                   <Badge variant="outline" className="text-xs px-1 py-0">
@@ -836,10 +836,10 @@ const MediaGallery = () => {
       </div>
 
       {filteredItems.length === 0 && (
-        <Card className="p-12 text-center">
+        <Card className="p-12 text-center bg-card/50 border-cyan-500/20">
           <Camera className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No Media Found</h3>
-          <p className="text-muted-foreground">Try adjusting your search criteria or filters.</p>
+          <h3 className="text-lg font-semibold mb-2 text-neon-sm">No Media Found</h3>
+          <p className="text-muted-foreground text-neon-sm">Try adjusting your search criteria or filters.</p>
         </Card>
       )}
 
@@ -847,7 +847,7 @@ const MediaGallery = () => {
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2 text-neon">
               {selectedItem && getTypeIcon(selectedItem.type)}
               {selectedItem?.title}
               {selectedItem?.aiGenerated && (
@@ -857,7 +857,7 @@ const MediaGallery = () => {
                 </Badge>
               )}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-neon-sm">
               {selectedItem?.description}
             </DialogDescription>
           </DialogHeader>
@@ -878,105 +878,105 @@ const MediaGallery = () => {
 
               {/* Details Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="p-4">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                <Card className="p-4 bg-card/50 border-cyan-500/20">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-neon-sm">
                     <User className="w-4 h-4" />
                     Winner Information
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Winner ID:</span>
-                      <span className="font-mono">{selectedItem.winnerId}</span>
+                      <span className="text-muted-foreground text-neon-sm">Winner ID:</span>
+                      <span className="font-mono text-neon-sm">{selectedItem.winnerId}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">UID:</span>
-                      <span className="font-mono">{selectedItem.uid}</span>
+                      <span className="text-muted-foreground text-neon-sm">UID:</span>
+                      <span className="font-mono text-neon-sm">{selectedItem.uid}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Category:</span>
-                      <span className="capitalize">{selectedItem.category.replace('_', ' ')}</span>
+                      <span className="text-muted-foreground text-neon-sm">Category:</span>
+                      <span className="capitalize text-neon-sm">{selectedItem.category.replace('_', ' ')}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Type:</span>
-                      <span className="capitalize">{selectedItem.type}</span>
+                      <span className="text-muted-foreground text-neon-sm">Type:</span>
+                      <span className="capitalize text-neon-sm">{selectedItem.type}</span>
                     </div>
                   </div>
                 </Card>
 
-                <Card className="p-4">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                <Card className="p-4 bg-card/50 border-cyan-500/20">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-neon-sm">
                     <Shield className="w-4 h-4" />
                     Verification
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Status:</span>
+                      <span className="text-muted-foreground text-neon-sm">Status:</span>
                       <div className="flex items-center gap-1">
                         {getStatusIcon(selectedItem.verification.status)}
-                        <span className="capitalize">{selectedItem.verification.status}</span>
+                        <span className="capitalize text-neon-sm">{selectedItem.verification.status}</span>
                       </div>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Method:</span>
-                      <span>{selectedItem.verification.method}</span>
+                      <span className="text-muted-foreground text-neon-sm">Method:</span>
+                      <span className="text-neon-sm">{selectedItem.verification.method}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Confidence:</span>
-                      <span>{selectedItem.verification.confidence}%</span>
+                      <span className="text-muted-foreground text-neon-sm">Confidence:</span>
+                      <span className="text-neon-sm">{selectedItem.verification.confidence}%</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Timestamp:</span>
-                      <span>{new Date(selectedItem.timestamp).toLocaleString()}</span>
+                      <span className="text-muted-foreground text-neon-sm">Timestamp:</span>
+                      <span className="text-neon-sm">{new Date(selectedItem.timestamp).toLocaleString()}</span>
                     </div>
                   </div>
                 </Card>
 
-                <Card className="p-4">
-                  <h3 className="font-semibold mb-3 flex items-center gap-2">
+                <Card className="p-4 bg-card/50 border-cyan-500/20">
+                  <h3 className="font-semibold mb-3 flex items-center gap-2 text-neon-sm">
                     <MapPin className="w-4 h-4" />
                     Location & Device
                   </h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Device:</span>
-                      <span>{selectedItem.metadata.device}</span>
+                      <span className="text-muted-foreground text-neon-sm">Device:</span>
+                      <span className="text-neon-sm">{selectedItem.metadata.device}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Location:</span>
-                      <span>{selectedItem.metadata.location}</span>
+                      <span className="text-muted-foreground text-neon-sm">Location:</span>
+                      <span className="text-neon-sm">{selectedItem.metadata.location}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">File Size:</span>
-                      <span>{selectedItem.metadata.fileSize}</span>
+                      <span className="text-muted-foreground text-neon-sm">File Size:</span>
+                      <span className="text-neon-sm">{selectedItem.metadata.fileSize}</span>
                     </div>
                     {selectedItem.metadata.dimensions && (
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Dimensions:</span>
-                        <span>{selectedItem.metadata.dimensions.width}x{selectedItem.metadata.dimensions.height}</span>
+                        <span className="text-muted-foreground text-neon-sm">Dimensions:</span>
+                        <span className="text-neon-sm">{selectedItem.metadata.dimensions.width}x{selectedItem.metadata.dimensions.height}</span>
                       </div>
                     )}
                   </div>
                 </Card>
 
                 {selectedItem.aiGenerated && (
-                  <Card className="p-4">
-                    <h3 className="font-semibold mb-3 flex items-center gap-2">
+                  <Card className="p-4 bg-card/50 border-cyan-500/20">
+                    <h3 className="font-semibold mb-3 flex items-center gap-2 text-neon-sm">
                       <Sparkles className="w-4 h-4" />
                       AI Generation
                     </h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Generated:</span>
-                        <span>Yes</span>
+                        <span className="text-muted-foreground text-neon-sm">Generated:</span>
+                        <span className="text-neon-sm">Yes</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-muted-foreground">Confidence:</span>
-                        <span>{selectedItem.confidence}%</span>
+                        <span className="text-muted-foreground text-neon-sm">Confidence:</span>
+                        <span className="text-neon-sm">{selectedItem.confidence}%</span>
                       </div>
                       {selectedItem.prompt && (
                         <div>
-                          <span className="text-muted-foreground">Prompt:</span>
-                          <p className="mt-1 p-2 bg-gray-50 rounded text-xs">{selectedItem.prompt}</p>
+                          <span className="text-muted-foreground text-neon-sm">Prompt:</span>
+                          <p className="mt-1 p-2 bg-gray-50 rounded text-xs text-neon-sm">{selectedItem.prompt}</p>
                         </div>
                       )}
                     </div>
@@ -1003,30 +1003,30 @@ const MediaGallery = () => {
       {/* Upload Dialog */}
       <Dialog open={showUploadDialog} onOpenChange={setShowUploadDialog}>
         <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Upload className="w-5 h-5" />
-              Upload Media Files
-            </DialogTitle>
-            <DialogDescription>
-              Upload verification media files to the gallery
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            {selectedFiles.length > 0 && (
-              <div className="space-y-2">
-                <Label>Selected Files ({selectedFiles.length})</Label>
+                     <DialogHeader>
+             <DialogTitle className="flex items-center gap-2 text-neon">
+               <Upload className="w-5 h-5" />
+               Upload Media Files
+             </DialogTitle>
+             <DialogDescription className="text-neon-sm">
+               Upload verification media files to the gallery
+             </DialogDescription>
+           </DialogHeader>
+           
+           <div className="space-y-4">
+             {selectedFiles.length > 0 && (
+               <div className="space-y-2">
+                 <Label className="text-neon-sm">Selected Files ({selectedFiles.length})</Label>
                 <div className="max-h-40 overflow-y-auto space-y-2">
                   {selectedFiles.map((file, index) => (
                     <div key={index} className="flex items-center justify-between p-2 border rounded">
-                      <div className="flex items-center gap-2">
-                        {getTypeIcon(file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'document')}
-                        <span className="text-sm">{file.name}</span>
-                        <Badge variant="outline" className="text-xs">
-                          {(file.size / 1024).toFixed(1)}KB
-                        </Badge>
-                      </div>
+                                             <div className="flex items-center gap-2">
+                         {getTypeIcon(file.type.startsWith('image/') ? 'image' : file.type.startsWith('video/') ? 'video' : 'document')}
+                         <span className="text-sm text-neon-sm">{file.name}</span>
+                         <Badge variant="outline" className="text-xs">
+                           {(file.size / 1024).toFixed(1)}KB
+                         </Badge>
+                       </div>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -1040,28 +1040,28 @@ const MediaGallery = () => {
               </div>
             )}
             
-            {isUploading && (
-              <div className="space-y-2">
-                <Label>Upload Progress</Label>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
-                    style={{ width: `${uploadProgress}%` }}
-                  ></div>
-                </div>
-                <p className="text-sm text-muted-foreground">{uploadProgress}% complete</p>
-              </div>
-            )}
-            
-            <div className="flex items-center gap-4">
-              <Button onClick={handleUploadFiles} disabled={isUploading}>
-                <Plus className="w-4 h-4 mr-2" />
-                Select Files
-              </Button>
-              <p className="text-sm text-muted-foreground">
-                Supported formats: Images (JPG, PNG, GIF), Videos (MP4, MOV), Documents (PDF)
-              </p>
-            </div>
+                         {isUploading && (
+               <div className="space-y-2">
+                 <Label className="text-neon-sm">Upload Progress</Label>
+                 <div className="w-full bg-gray-200 rounded-full h-2">
+                   <div 
+                     className="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                     style={{ width: `${uploadProgress}%` }}
+                   ></div>
+                 </div>
+                 <p className="text-sm text-muted-foreground text-neon-sm">{uploadProgress}% complete</p>
+               </div>
+             )}
+             
+             <div className="flex items-center gap-4">
+               <Button onClick={handleUploadFiles} disabled={isUploading}>
+                 <Plus className="w-4 h-4 mr-2" />
+                 Select Files
+               </Button>
+               <p className="text-sm text-muted-foreground text-neon-sm">
+                 Supported formats: Images (JPG, PNG, GIF), Videos (MP4, MOV), Documents (PDF)
+               </p>
+             </div>
           </div>
           
           <DialogFooter>
@@ -1088,76 +1088,76 @@ const MediaGallery = () => {
       {/* Export Dialog */}
       <Dialog open={showExportDialog} onOpenChange={setShowExportDialog}>
         <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Download className="w-5 h-5" />
-              Export Media Gallery
-            </DialogTitle>
-            <DialogDescription>
-              Export filtered media items with comprehensive data
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <Card className="p-4">
-                <h3 className="font-semibold mb-2">Export Summary</h3>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Total Items:</span>
-                    <span className="font-mono">{filteredItems.length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Images:</span>
-                    <span>{filteredItems.filter(item => item.type === 'image').length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Videos:</span>
-                    <span>{filteredItems.filter(item => item.type === 'video').length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Documents:</span>
-                    <span>{filteredItems.filter(item => item.type === 'document').length}</span>
-                  </div>
-                </div>
-              </Card>
-              
-              <Card className="p-4">
-                <h3 className="font-semibold mb-2">Active Filters</h3>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span>Category:</span>
-                    <span>{filterCategory === 'all' ? 'All' : filterCategory}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Campaign:</span>
-                    <span>{filterCampaign === 'all' ? 'All' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Status:</span>
-                    <span>{filterStatus === 'all' ? 'All' : filterStatus}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Date Range:</span>
-                    <span>{filterDateRange === 'all' ? 'All' : filterDateRange}</span>
-                  </div>
-                </div>
-              </Card>
-            </div>
-            
-            <div className="p-4 bg-blue-50 rounded-lg">
-              <h3 className="font-semibold mb-2 text-blue-900">Export Formats</h3>
-              <div className="space-y-2 text-sm text-blue-800">
-                <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  <span>JSON: Complete data with metadata and AI prompts</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <BarChart3 className="w-4 h-4" />
-                  <span>CSV: Tabular data for spreadsheet analysis</span>
-                </div>
-              </div>
-            </div>
+                     <DialogHeader>
+             <DialogTitle className="flex items-center gap-2 text-neon">
+               <Download className="w-5 h-5" />
+               Export Media Gallery
+             </DialogTitle>
+             <DialogDescription className="text-neon-sm">
+               Export filtered media items with comprehensive data
+             </DialogDescription>
+           </DialogHeader>
+           
+           <div className="space-y-4">
+             <div className="grid grid-cols-2 gap-4">
+               <Card className="p-4 bg-card/50 border-cyan-500/20">
+                 <h3 className="font-semibold mb-2 text-neon-sm">Export Summary</h3>
+                 <div className="space-y-1 text-sm">
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Total Items:</span>
+                     <span className="font-mono text-neon-sm">{filteredItems.length}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Images:</span>
+                     <span className="text-neon-sm">{filteredItems.filter(item => item.type === 'image').length}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Videos:</span>
+                     <span className="text-neon-sm">{filteredItems.filter(item => item.type === 'video').length}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Documents:</span>
+                     <span className="text-neon-sm">{filteredItems.filter(item => item.type === 'document').length}</span>
+                   </div>
+                 </div>
+               </Card>
+               
+               <Card className="p-4 bg-card/50 border-cyan-500/20">
+                 <h3 className="font-semibold mb-2 text-neon-sm">Active Filters</h3>
+                 <div className="space-y-1 text-sm">
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Category:</span>
+                     <span className="text-neon-sm">{filterCategory === 'all' ? 'All' : filterCategory}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Campaign:</span>
+                     <span className="text-neon-sm">{filterCampaign === 'all' ? 'All' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Status:</span>
+                     <span className="text-neon-sm">{filterStatus === 'all' ? 'All' : filterStatus}</span>
+                   </div>
+                   <div className="flex justify-between">
+                     <span className="text-neon-sm">Date Range:</span>
+                     <span className="text-neon-sm">{filterDateRange === 'all' ? 'All' : filterDateRange}</span>
+                   </div>
+                 </div>
+               </Card>
+             </div>
+             
+             <div className="p-4 bg-blue-50 rounded-lg">
+               <h3 className="font-semibold mb-2 text-blue-900 text-neon-sm">Export Formats</h3>
+               <div className="space-y-2 text-sm text-blue-800">
+                 <div className="flex items-center gap-2">
+                   <FileText className="w-4 h-4" />
+                   <span className="text-neon-sm">JSON: Complete data with metadata and AI prompts</span>
+                 </div>
+                 <div className="flex items-center gap-2">
+                   <BarChart3 className="w-4 h-4" />
+                   <span className="text-neon-sm">CSV: Tabular data for spreadsheet analysis</span>
+                 </div>
+               </div>
+             </div>
           </div>
           
           <DialogFooter>
@@ -1184,20 +1184,20 @@ const MediaGallery = () => {
       {/* Advanced Filters Dialog */}
       <Dialog open={showFilterDialog} onOpenChange={setShowFilterDialog}>
         <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Filter className="w-5 h-5" />
-              Advanced Filters
-            </DialogTitle>
-            <DialogDescription>
-              Configure detailed filters for media gallery
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Campaign</Label>
+                     <DialogHeader>
+             <DialogTitle className="flex items-center gap-2 text-neon">
+               <Filter className="w-5 h-5" />
+               Advanced Filters
+             </DialogTitle>
+             <DialogDescription className="text-neon-sm">
+               Configure detailed filters for media gallery
+             </DialogDescription>
+           </DialogHeader>
+           
+           <div className="space-y-6">
+             <div className="grid grid-cols-2 gap-4">
+               <div className="space-y-2">
+                 <Label className="text-neon-sm">Campaign</Label>
                 <Select value={filterCampaign} onValueChange={setFilterCampaign}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Campaign" />
@@ -1218,8 +1218,8 @@ const MediaGallery = () => {
                 </Select>
               </div>
               
-              <div className="space-y-2">
-                <Label>Sponsor</Label>
+                             <div className="space-y-2">
+                 <Label className="text-neon-sm">Sponsor</Label>
                 <Select value={filterSponsor} onValueChange={setFilterSponsor}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Sponsor" />
@@ -1239,8 +1239,8 @@ const MediaGallery = () => {
               </div>
             </div>
             
-            <div className="space-y-2">
-              <Label>Date Range</Label>
+                         <div className="space-y-2">
+               <Label className="text-neon-sm">Date Range</Label>
               <Select value={filterDateRange} onValueChange={setFilterDateRange}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select Date Range" />
@@ -1255,17 +1255,17 @@ const MediaGallery = () => {
               </Select>
             </div>
             
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <h3 className="font-semibold mb-2">Filter Summary</h3>
-              <div className="space-y-1 text-sm text-muted-foreground">
-                <p>Category: {filterCategory === 'all' ? 'All Categories' : filterCategory}</p>
-                <p>Type: {filterType === 'all' ? 'All Types' : filterType}</p>
-                <p>Status: {filterStatus === 'all' ? 'All Status' : filterStatus}</p>
-                <p>Campaign: {filterCampaign === 'all' ? 'All Campaigns' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</p>
-                <p>Sponsor: {filterSponsor === 'all' ? 'All Sponsors' : sponsors.find(s => s.id === filterSponsor)?.name || 'All'}</p>
-                <p>Date Range: {filterDateRange === 'all' ? 'All Time' : filterDateRange}</p>
-              </div>
-            </div>
+                         <div className="p-4 bg-gray-50 rounded-lg">
+               <h3 className="font-semibold mb-2 text-neon-sm">Filter Summary</h3>
+               <div className="space-y-1 text-sm text-muted-foreground">
+                 <p className="text-neon-sm">Category: {filterCategory === 'all' ? 'All Categories' : filterCategory}</p>
+                 <p className="text-neon-sm">Type: {filterType === 'all' ? 'All Types' : filterType}</p>
+                 <p className="text-neon-sm">Status: {filterStatus === 'all' ? 'All Status' : filterStatus}</p>
+                 <p className="text-neon-sm">Campaign: {filterCampaign === 'all' ? 'All Campaigns' : campaigns.find(c => c.id === filterCampaign)?.name || 'All'}</p>
+                 <p className="text-neon-sm">Sponsor: {filterSponsor === 'all' ? 'All Sponsors' : sponsors.find(s => s.id === filterSponsor)?.name || 'All'}</p>
+                 <p className="text-neon-sm">Date Range: {filterDateRange === 'all' ? 'All Time' : filterDateRange}</p>
+               </div>
+             </div>
           </div>
           
           <DialogFooter>

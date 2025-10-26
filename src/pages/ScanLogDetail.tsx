@@ -42,7 +42,7 @@ export const ScanLogDetail = () => {
   const [isExporting, setIsExporting] = useState(false);
   const [isGeneratingDigest, setIsGeneratingDigest] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterValue, setFilterValue] = useState("Airport");
+  const [filterValue, setFilterValue] = useState("Mall");
   const [syncStatus, setSyncStatus] = useState("Ready");
   const [lastSyncTime, setLastSyncTime] = useState<Date | null>(null);
   const [blockHeight, setBlockHeight] = useState(23678);
@@ -106,17 +106,34 @@ export const ScanLogDetail = () => {
     }
   ];
 
-  const currentScan = scanLogs.find(s => s.id === selectedScan) || scanLogs[0];
+  // Filter scan logs based on search term and filter value
+  const filteredScanLogs = scanLogs.filter(scan => {
+    // Search filter: search in UID, sponsor, device
+    const matchesSearch = !searchTerm || 
+      scan.uid.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      scan.sponsor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      scan.device.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      scan.id.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Location filter: filter by device type (Airport/Mall)
+    const matchesFilter = filterValue === "All" || 
+      (filterValue === "Airport" && (scan.device.includes("Walking Billboard") || scan.device.includes("Bus Display"))) ||
+      (filterValue === "Mall" && scan.device.includes("Mall"));
+    
+    return matchesSearch && matchesFilter;
+  });
+
+  const currentScan = filteredScanLogs.find(s => s.id === selectedScan) || filteredScanLogs[0] || scanLogs[0];
   
-  // Statistics
-  const totalScans = scanLogs.length;
-  const verifiedCount = scanLogs.filter(s => s.status === 'verified').length;
-  const pendingCount = scanLogs.filter(s => s.status === 'pending').length;
-  const rejectedCount = scanLogs.filter(s => s.status === 'rejected').length;
+  // Statistics (use filtered data)
+  const totalScans = filteredScanLogs.length;
+  const verifiedCount = filteredScanLogs.filter(s => s.status === 'verified').length;
+  const pendingCount = filteredScanLogs.filter(s => s.status === 'pending').length;
+  const rejectedCount = filteredScanLogs.filter(s => s.status === 'rejected').length;
   
-  const verifiedPercentage = Math.round((verifiedCount / totalScans) * 100);
-  const pendingPercentage = Math.round((pendingCount / totalScans) * 100);
-  const rejectedPercentage = Math.round((rejectedCount / totalScans) * 100);
+  const verifiedPercentage = totalScans > 0 ? Math.round((verifiedCount / totalScans) * 100) : 0;
+  const pendingPercentage = totalScans > 0 ? Math.round((pendingCount / totalScans) * 100) : 0;
+  const rejectedPercentage = totalScans > 0 ? Math.round((rejectedCount / totalScans) * 100) : 0;
 
   // Button handlers
   const handleSyncWithBlockchain = async () => {
@@ -431,7 +448,12 @@ export const ScanLogDetail = () => {
         <Button 
           variant="outline" 
           className="flex items-center gap-2"
-          onClick={() => handleFilterChange(filterValue === "Airport" ? "Mall" : "Airport")}
+          onClick={() => {
+            const filters = ["All", "Mall", "Airport"];
+            const currentIndex = filters.indexOf(filterValue);
+            const nextFilter = filters[(currentIndex + 1) % filters.length];
+            handleFilterChange(nextFilter);
+          }}
         >
           Filter: {filterValue}
           <ChevronDown className="w-4 h-4" />
@@ -440,19 +462,19 @@ export const ScanLogDetail = () => {
 
       {/* Stats Cards Row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-cyan-500/20">
+        <Card className="p-4 bg-card/50 border border-cyan-500/20">
           <div className="text-sm text-gray-400 mb-1">Total Scans</div>
           <div className="text-2xl font-bold text-white text-neon">{totalScans}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-green-500/20">
+        <Card className="p-4 bg-card/50 border border-green-500/20">
           <div className="text-sm text-gray-400 mb-1">Verified</div>
           <div className="text-2xl font-bold text-green-400 text-neon-success">{verifiedCount}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-yellow-500/20">
+        <Card className="p-4 bg-card/50 border border-yellow-500/20">
           <div className="text-sm text-gray-400 mb-1">Pending</div>
           <div className="text-2xl font-bold text-yellow-400 text-neon-warning">{pendingCount}</div>
         </Card>
-        <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-red-500/20">
+        <Card className="p-4 bg-card/50 border border-red-500/20">
           <div className="text-sm text-gray-400 mb-1">Rejected</div>
           <div className="text-2xl font-bold text-red-400 text-neon-danger">{rejectedCount}</div>
         </Card>
@@ -481,7 +503,7 @@ export const ScanLogDetail = () => {
                 </tr>
               </thead>
               <tbody>
-                {scanLogs.map((scan, i) => (
+                {filteredScanLogs.map((scan, i) => (
                   <tr 
                     key={i} 
                     onClick={() => setSelectedScan(scan.id)}

@@ -27,7 +27,7 @@ export const MainOverview = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
   const { theme, resolvedTheme } = useTheme();
-  const [selectedTimePeriod, setSelectedTimePeriod] = useState("This Week");
+  const [selectedTimePeriod, setSelectedTimePeriod] = useState("Today");
   const { stats, loading: statsLoading } = useRealtimeStats(selectedTimePeriod);
   const { activities, loading: activitiesLoading } = useRealtimeActivities(selectedTimePeriod);
   const [isGeneratingAudit, setIsGeneratingAudit] = useState(false);
@@ -47,13 +47,25 @@ export const MainOverview = () => {
   const [syncResults, setSyncResults] = useState<any>(null);
 
   // Real-time world map locations with actual geographic data
-  const [worldMapLocations, setWorldMapLocations] = useState([
+  type LocationColor = "success" | "warning" | "danger";
+  
+  const [worldMapLocations, setWorldMapLocations] = useState<Array<{
+    name: string;
+    x: number;
+    y: number;
+    activity: number;
+    color: LocationColor;
+    scans: number;
+    lastActivity: string;
+    country: string;
+    timezone: string;
+  }>>([
     { 
       name: "Nairobi, Kenya", 
       x: 36.8172, 
       y: -1.2864, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "Kenya",
@@ -64,7 +76,7 @@ export const MainOverview = () => {
       x: 55.2708, 
       y: 25.2048, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "United Arab Emirates",
@@ -75,7 +87,7 @@ export const MainOverview = () => {
       x: 4.9041, 
       y: 52.3676, 
       activity: 0, 
-      color: "success" as const,
+      color: "success",
       scans: 0,
       lastActivity: "Loading...",
       country: "Netherlands",
@@ -86,7 +98,7 @@ export const MainOverview = () => {
       x: -74.0060, 
       y: 40.7128, 
       activity: 0, 
-      color: "success" as const,
+      color: "success",
       scans: 0,
       lastActivity: "Loading...",
       country: "United States",
@@ -97,7 +109,7 @@ export const MainOverview = () => {
       x: -0.1276, 
       y: 51.5074, 
       activity: 0, 
-      color: "success" as const,
+      color: "success",
       scans: 0,
       lastActivity: "Loading...",
       country: "United Kingdom",
@@ -108,7 +120,7 @@ export const MainOverview = () => {
       x: 103.8198, 
       y: 1.3521, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "Singapore",
@@ -119,7 +131,7 @@ export const MainOverview = () => {
       x: 139.6917, 
       y: 35.6895, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "Japan",
@@ -130,7 +142,7 @@ export const MainOverview = () => {
       x: 151.2093, 
       y: -33.8688, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "Australia",
@@ -141,7 +153,7 @@ export const MainOverview = () => {
       x: -46.6333, 
       y: -23.5505, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "Brazil",
@@ -152,7 +164,7 @@ export const MainOverview = () => {
       x: 72.8777, 
       y: 19.0760, 
       activity: 0, 
-      color: "warning" as const,
+      color: "warning",
       scans: 0,
       lastActivity: "Loading...",
       country: "India",
@@ -163,7 +175,7 @@ export const MainOverview = () => {
       x: -79.3832, 
       y: 43.6532, 
       activity: 0, 
-      color: "success" as const,
+      color: "success",
       scans: 0,
       lastActivity: "Loading...",
       country: "Canada",
@@ -174,7 +186,7 @@ export const MainOverview = () => {
       x: 13.4050, 
       y: 52.5200, 
       activity: 0, 
-      color: "success" as const,
+      color: "success",
       scans: 0,
       lastActivity: "Loading...",
       country: "Germany",
@@ -212,7 +224,7 @@ export const MainOverview = () => {
             activity: newActivity,
             scans: newScans,
             lastActivity: currentTime,
-            color: (newActivity > 80 ? "success" : newActivity > 60 ? "warning" : "danger") as const
+            color: (newActivity > 80 ? "success" : newActivity > 60 ? "warning" : "danger") as LocationColor
           };
         })
       );
@@ -234,7 +246,7 @@ export const MainOverview = () => {
             timeZone: location.timezone,
             hour12: false 
           }),
-          color: (newActivity > 80 ? "success" : newActivity > 60 ? "warning" : "danger") as const
+          color: (newActivity > 80 ? "success" : newActivity > 60 ? "warning" : "danger") as LocationColor
         };
       }));
     }
@@ -325,129 +337,219 @@ export const MainOverview = () => {
     }, 1500);
   };
 
-  const exportToPDF = () => {
-    const reportData = {
-      title: "Kardiverse Audit Dashboard Report",
-      generatedAt: new Date().toLocaleString(),
-      timePeriod: selectedTimePeriod,
-      stats: stats,
-      activities: activities.slice(0, 20),
-      chartData: chartData
-    };
+  const exportToPDF = async () => {
+    try {
+      // Create comprehensive PDF report using HTML/CSS with proper PDF styling
+      const reportData = {
+        title: "Kardiverse Audit Dashboard Report",
+        generatedAt: new Date().toLocaleString(),
+        timePeriod: selectedTimePeriod,
+        stats: stats,
+        activities: activities.slice(0, 30),
+        chartData: chartData
+      };
 
-    // Create PDF content using HTML/CSS
-    const pdfContent = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Dashboard Report</title>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 20px; }
-          .header { text-align: center; margin-bottom: 30px; }
-          .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
-          .stat-card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; }
-          .activities { margin-top: 30px; }
-          .activity-item { margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px; }
-          .chart-placeholder { height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; margin: 20px 0; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>${reportData.title}</h1>
-          <p>Generated: ${reportData.generatedAt}</p>
-          <p>Time Period: ${reportData.timePeriod}</p>
-        </div>
-        
-        <div class="stats-grid">
-          <div class="stat-card">
-            <h3>Total Campaign Scans</h3>
-            <p>${reportData.stats.registeredScans.toLocaleString()}</p>
+      // Create HTML content with better PDF styling
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Dashboard Report</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { 
+              font-family: 'Arial', sans-serif; 
+              padding: 40px; 
+              background: #fff;
+              color: #333;
+              line-height: 1.6;
+            }
+            .header { 
+              text-align: center; 
+              margin-bottom: 40px; 
+              border-bottom: 3px solid #3b82f6;
+              padding-bottom: 20px;
+            }
+            .header h1 { 
+              color: #1e40af; 
+              font-size: 28px; 
+              margin-bottom: 10px;
+            }
+            .header p { 
+              color: #666; 
+              font-size: 14px; 
+            }
+            .stats-grid { 
+              display: grid; 
+              grid-template-columns: repeat(3, 1fr); 
+              gap: 20px; 
+              margin-bottom: 40px; 
+            }
+            .stat-card { 
+              border: 2px solid #e5e7eb; 
+              padding: 20px; 
+              border-radius: 8px; 
+              background: #f9fafb;
+            }
+            .stat-card h3 { 
+              color: #4b5563; 
+              font-size: 14px; 
+              margin-bottom: 10px;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .stat-card p { 
+              color: #1f2937; 
+              font-size: 24px; 
+              font-weight: bold;
+            }
+            .activities { 
+              margin-top: 40px; 
+              padding-top: 30px;
+              border-top: 2px solid #e5e7eb;
+            }
+            .activities h2 {
+              color: #1e40af;
+              margin-bottom: 20px;
+              font-size: 22px;
+            }
+            .activity-item { 
+              margin: 15px 0; 
+              padding: 15px; 
+              background: #f3f4f6; 
+              border-radius: 6px;
+              border-left: 4px solid #3b82f6;
+            }
+            .activity-item strong {
+              color: #1e40af;
+              font-weight: 600;
+            }
+            .footer {
+              margin-top: 40px;
+              padding-top: 20px;
+              border-top: 1px solid #e5e7eb;
+              text-align: center;
+              color: #9ca3af;
+              font-size: 12px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>${reportData.title}</h1>
+            <p><strong>Generated:</strong> ${reportData.generatedAt}</p>
+            <p><strong>Time Period:</strong> ${reportData.timePeriod}</p>
           </div>
-          <div class="stat-card">
-            <h3>Unique Winners</h3>
-            <p>${reportData.stats.uniqueWinners.toLocaleString()}</p>
-          </div>
-          <div class="stat-card">
-            <h3>Released Amount</h3>
-            <p>€${reportData.stats.releasedAmount.toLocaleString()}</p>
-          </div>
-          <div class="stat-card">
-            <h3>Documents Verified</h3>
-            <p>${reportData.stats.documentsVerified}</p>
-          </div>
-          <div class="stat-card">
-            <h3>Escrow Status</h3>
-            <p>${reportData.stats.escrowStatus}%</p>
-          </div>
-          <div class="stat-card">
-            <h3>Notary Certificates</h3>
-            <p>${reportData.stats.notaryCertificates}</p>
-          </div>
-        </div>
-        
-        <div class="chart-placeholder">
-          <p>Chart Data: ${reportData.chartData.labels.join(', ')}</p>
-        </div>
-        
-        <div class="activities">
-          <h2>Recent Activities</h2>
-          ${reportData.activities.map(activity => `
-            <div class="activity-item">
-              <strong>[${new Date(activity.timestamp).toLocaleTimeString()}]</strong> ${activity.message}
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <h3>Total Campaign Scans</h3>
+              <p>${reportData.stats.registeredScans.toLocaleString()}</p>
             </div>
-          `).join('')}
-        </div>
-      </body>
-      </html>
-    `;
+            <div class="stat-card">
+              <h3>Unique Winners</h3>
+              <p>${reportData.stats.uniqueWinners.toLocaleString()}</p>
+            </div>
+            <div class="stat-card">
+              <h3>Released Amount</h3>
+              <p>€${reportData.stats.releasedAmount.toLocaleString()}</p>
+            </div>
+            <div class="stat-card">
+              <h3>Documents Verified</h3>
+              <p>${reportData.stats.documentsVerified.toLocaleString()}</p>
+            </div>
+            <div class="stat-card">
+              <h3>Escrow Status</h3>
+              <p>${reportData.stats.escrowStatus}%</p>
+            </div>
+            <div class="stat-card">
+              <h3>Notary Certificates</h3>
+              <p>${reportData.stats.notaryCertificates}</p>
+            </div>
+          </div>
+          
+          <div class="activities">
+            <h2>Recent Activities</h2>
+            ${reportData.activities.map(activity => `
+              <div class="activity-item">
+                <strong>[${new Date(activity.timestamp).toLocaleTimeString()}]</strong> ${activity.message}
+              </div>
+            `).join('')}
+          </div>
 
-    // Create and download PDF
-    const blob = new Blob([pdfContent], { type: 'text/html' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `dashboard-report-${selectedTimePeriod.toLowerCase().replace(' ', '-')}-${new Date().toISOString().split('T')[0]}.html`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+          <div class="footer">
+            <p>This report was generated automatically by the Kardiverse Audit Dashboard</p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Create and download as HTML (browser will handle opening)
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `dashboard-report-${selectedTimePeriod.toLowerCase().replace(' ', '-')}-${new Date().toISOString().split('T')[0]}.html`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      throw new Error(`PDF export failed: ${error}`);
+    }
   };
 
   const exportToCSV = () => {
-    const csvData = [
-      ['Metric', 'Value', 'Time Period', 'Generated At'],
-      ['Total Campaign Scans', stats.registeredScans, selectedTimePeriod, new Date().toLocaleString()],
-      ['Unique Winners', stats.uniqueWinners, selectedTimePeriod, new Date().toLocaleString()],
-      ['Released Amount (€)', stats.releasedAmount, selectedTimePeriod, new Date().toLocaleString()],
-      ['Documents Verified', stats.documentsVerified, selectedTimePeriod, new Date().toLocaleString()],
-      ['Escrow Status (%)', stats.escrowStatus, selectedTimePeriod, new Date().toLocaleString()],
-      ['Notary Certificates', stats.notaryCertificates, selectedTimePeriod, new Date().toLocaleString()],
-      ['', '', '', ''],
-      ['Activity', 'Timestamp', 'Status', 'Type'],
-      ...activities.slice(0, 50).map(activity => [
-        activity.message,
-        new Date(activity.timestamp).toLocaleString(),
-        activity.status,
-        activity.type
-      ]),
-      ['', '', '', ''],
-      ['Chart Labels', 'Chart Data', '', ''],
-      ...chartData.labels.map((label, index) => [label, chartData.data[index], '', ''])
-    ];
+    try {
+      const csvData = [
+        ['Metric', 'Value', 'Time Period', 'Generated At'],
+        ['Total Campaign Scans', stats.registeredScans, selectedTimePeriod, new Date().toLocaleString()],
+        ['Unique Winners', stats.uniqueWinners, selectedTimePeriod, new Date().toLocaleString()],
+        ['Released Amount (€)', stats.releasedAmount, selectedTimePeriod, new Date().toLocaleString()],
+        ['Documents Verified', stats.documentsVerified, selectedTimePeriod, new Date().toLocaleString()],
+        ['Escrow Status (%)', stats.escrowStatus, selectedTimePeriod, new Date().toLocaleString()],
+        ['Notary Certificates', stats.notaryCertificates, selectedTimePeriod, new Date().toLocaleString()],
+        ['', '', '', ''],
+        ['Activity', 'Timestamp', 'Status', 'Type'],
+        ...activities.slice(0, 50).map(activity => [
+          activity.message,
+          new Date(activity.timestamp).toLocaleString(),
+          activity.status,
+          activity.type
+        ]),
+        ['', '', '', ''],
+        ['Chart Labels', 'Chart Data', '', ''],
+        ...chartData.labels.map((label, index) => [label, chartData.data[index], '', ''])
+      ];
 
-    const csvContent = csvData.map(row => 
-      row.map(cell => `"${cell}"`).join(',')
-    ).join('\n');
+      const csvContent = csvData.map(row => 
+        row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')
+      ).join('\n');
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `dashboard-data-${selectedTimePeriod.toLowerCase().replace(' ', '-')}-${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.URL.revokeObjectURL(url);
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `dashboard-data-${selectedTimePeriod.toLowerCase().replace(' ', '-')}-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+      
+      // Success message
+      toast({
+        title: "CSV Export Successful",
+        description: "Dashboard data has been exported successfully.",
+      });
+    } catch (error) {
+      console.error('CSV export error:', error);
+      toast({
+        title: "Export Failed",
+        description: "Failed to generate CSV export. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
 
@@ -820,14 +922,20 @@ ${generatedCertificate.legalDisclaimer}
                 <ChevronDown className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="w-48">
               <DropdownMenuLabel>Export Format</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => handleExport("PDF")}>
+              <DropdownMenuItem 
+                onClick={() => handleExport("PDF")}
+                className="cursor-pointer focus:bg-primary/10"
+              >
                 <FileText className="w-4 h-4 mr-2" />
                 PDF Report
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => handleExport("CSV")}>
+              <DropdownMenuItem 
+                onClick={() => handleExport("CSV")}
+                className="cursor-pointer focus:bg-primary/10"
+              >
                 <FileText className="w-4 h-4 mr-2" />
                 CSV Data
               </DropdownMenuItem>
@@ -1124,7 +1232,7 @@ ${generatedCertificate.legalDisclaimer}
           {auditReport && (
             <div className="space-y-6">
               {/* Executive Summary */}
-              <Card className="p-4">
+              <Card className="p-4 bg-card/50">
                 <h3 className="text-lg font-semibold mb-3">Executive Summary</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   <div className="text-center p-3 bg-primary/10 rounded-lg">
@@ -1156,7 +1264,7 @@ ${generatedCertificate.legalDisclaimer}
 
               {/* Compliance & Risk Assessment */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Card className="p-4">
+                <Card className="p-4 bg-card/50">
                   <h3 className="text-lg font-semibold mb-3">Compliance Status</h3>
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-3 h-3 rounded-full bg-success"></div>
@@ -1167,7 +1275,7 @@ ${generatedCertificate.legalDisclaimer}
                   </div>
                 </Card>
                 
-                <Card className="p-4">
+                <Card className="p-4 bg-card/50">
                   <h3 className="text-lg font-semibold mb-3">Risk Assessment</h3>
                   <div className="space-y-2">
                     <div className="flex justify-between">
@@ -1187,7 +1295,7 @@ ${generatedCertificate.legalDisclaimer}
               </div>
 
               {/* Financial Summary */}
-              <Card className="p-4">
+              <Card className="p-4 bg-card/50">
                 <h3 className="text-lg font-semibold mb-3">Financial Summary</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center">
@@ -1210,7 +1318,7 @@ ${generatedCertificate.legalDisclaimer}
               </Card>
 
               {/* Recent Activities */}
-              <Card className="p-4">
+              <Card className="p-4 bg-card/50">
                 <h3 className="text-lg font-semibold mb-3">Recent Activities</h3>
                 <div className="space-y-2 max-h-40 overflow-y-auto">
                   {auditReport.activities.map((activity: any, index: number) => (
@@ -1229,7 +1337,7 @@ ${generatedCertificate.legalDisclaimer}
               </Card>
 
               {/* Recommendations */}
-              <Card className="p-4">
+              <Card className="p-4 bg-card/50">
                 <h3 className="text-lg font-semibold mb-3">Recommendations</h3>
                 <ul className="space-y-2">
                   {auditReport.recommendations.map((rec: string, index: number) => (

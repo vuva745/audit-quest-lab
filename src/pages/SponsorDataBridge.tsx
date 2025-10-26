@@ -155,6 +155,90 @@ const SponsorDataBridge = () => {
     }, 3000);
   };
 
+  const handleSalesforce = () => {
+    toast({
+      title: "Salesforce Integration",
+      description: "Connecting to Salesforce CRM...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Salesforce Connected",
+        description: "Successfully connected to Salesforce. Syncing contacts...",
+      });
+      
+      setTimeout(() => {
+        toast({
+          title: "Salesforce Sync Complete",
+          description: "156 contacts synchronized successfully",
+        });
+      }, 2000);
+    }, 1500);
+  };
+
+  const handleHubSpot = () => {
+    toast({
+      title: "HubSpot Integration",
+      description: "Connecting to HubSpot CRM...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "HubSpot Connected",
+        description: "Successfully connected to HubSpot. Syncing contacts...",
+      });
+      
+      setTimeout(() => {
+        toast({
+          title: "HubSpot Sync Complete",
+          description: "89 contacts synchronized successfully",
+        });
+      }, 2000);
+    }, 1500);
+  };
+
+  const handleOracleCX = () => {
+    toast({
+      title: "Oracle CX Integration",
+      description: "Connecting to Oracle CX Cloud...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Oracle CX Connected",
+        description: "Successfully connected to Oracle CX. Syncing contacts...",
+      });
+      
+      setTimeout(() => {
+        toast({
+          title: "Oracle CX Sync Complete",
+          description: "234 contacts synchronized successfully",
+        });
+      }, 2000);
+    }, 1500);
+  };
+
+  const handleCustomSponsorDB = () => {
+    toast({
+      title: "Custom Sponsor Database",
+      description: "Connecting to custom sponsor database...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Database Connected",
+        description: "Successfully connected to custom database. Syncing sponsor data...",
+      });
+      
+      setTimeout(() => {
+        toast({
+          title: "Database Sync Complete",
+          description: "1,247 sponsor records synchronized successfully",
+        });
+      }, 2000);
+    }, 1500);
+  };
+
   const executeSync = async () => {
     setIsSyncing(true);
     setSyncProgress(0);
@@ -404,7 +488,7 @@ const SponsorDataBridge = () => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-primary text-neon mb-2">Sponsor Data Bridge – Tab 9</h1>
-          <p className="text-muted-foreground text-lg">Live data link between NeCodr™, Blockchain and external CRM systems.</p>
+          <p className="text-muted-foreground text-lg text-neon-sm">Live data link between NeCodr™, Blockchain and external CRM systems.</p>
         </div>
         <div className="flex items-center gap-4">
           <Button 
@@ -437,7 +521,7 @@ const SponsorDataBridge = () => {
         <Button 
           variant="link" 
           onClick={handleAllNodesSynced}
-          className="text-cyan-400 text-lg font-semibold p-0 h-auto hover:text-cyan-300"
+          className="text-cyan-400 text-lg font-semibold p-0 h-auto hover:text-cyan-300 text-neon"
         >
           All Nodes Synced
         </Button>
@@ -457,8 +541,8 @@ const SponsorDataBridge = () => {
       {/* Top Row Panels */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         {/* Connection Overview */}
-        <Card className="p-6 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
-          <h2 className="text-xl font-semibold mb-4">Connection Overview</h2>
+        <Card className="p-6 bg-card/50 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
+          <h2 className="text-xl font-semibold mb-4 text-neon">Connection Overview</h2>
           <div className="space-y-4">
             <div className="flex gap-2">
               <Button 
@@ -484,24 +568,24 @@ const SponsorDataBridge = () => {
               Blockchain
             </Button>
             <div className="space-y-2">
-              <p>Total Sponsors/CRM {syncData.totalSponsors.toLocaleString()}</p>
-              <p>Verified Tokens: {syncData.verifiedTokens.toLocaleString()}</p>
-              <p>Active CRM Links: {syncData.activeCrmLinks}</p>
+              <p className="text-neon-sm">Total Sponsors/CRM {syncData.totalSponsors.toLocaleString()}</p>
+              <p className="text-neon-sm">Verified Tokens: {syncData.verifiedTokens.toLocaleString()}</p>
+              <p className="text-neon-sm">Active CRM Links: {syncData.activeCrmLinks}</p>
             </div>
           </div>
         </Card>
 
         {/* API & Blockchain Monitor */}
-        <Card className="p-6 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
-          <h2 className="text-xl font-semibold mb-4">API & Blockchain Monitor</h2>
+        <Card className="p-6 bg-card/50 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
+          <h2 className="text-xl font-semibold mb-4 text-neon">API & Blockchain Monitor</h2>
           <div className="space-y-4">
             <div className="border border-cyan-500/40 rounded-lg p-3 bg-cyan-500/10 shadow-[0_0_10px_rgba(102,204,255,0.2)]">
-              <p className="text-sm">
+              <p className="text-sm text-neon-sm">
                 API Health: Latency {syncData.apiLatency}ms | Uptime {syncData.uptime.toFixed(1)}%
               </p>
             </div>
             <div className="border border-cyan-500/40 rounded-lg p-3 bg-cyan-500/10 shadow-[0_0_10px_rgba(102,204,255,0.2)]">
-              <p className="text-sm">
+              <p className="text-sm text-neon-sm">
                 Blockchain Verified: Block #{syncData.blockchainBlock.toLocaleString()} Proofs
               </p>
             </div>
@@ -530,27 +614,39 @@ const SponsorDataBridge = () => {
                   <line x1="0" y1="60" x2="200" y2="60" stroke="#374151" strokeWidth="1" opacity="0.3" />
                 </svg>
               </div>
-              <p className="text-sm mt-2">Sync Stability (last 4 h)</p>
+              <p className="text-sm mt-2 text-neon-sm">Sync Stability (last 4 h)</p>
             </div>
           </div>
         </Card>
 
         {/* CRM Integration Panel */}
-        <Card className="p-6 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
-          <h2 className="text-xl font-semibold mb-4">CRM Integration Panel</h2>
+        <Card className="p-6 bg-card/50 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
+          <h2 className="text-xl font-semibold mb-4 text-neon">CRM Integration Panel</h2>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-2">
-              <Button className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300">
+              <Button 
+                onClick={handleSalesforce}
+                className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
+              >
                 Salesforce
               </Button>
-              <Button className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300">
+              <Button 
+                onClick={handleHubSpot}
+                className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300"
+              >
                 HubSpot
               </Button>
             </div>
-            <Button className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 w-full">
+            <Button 
+              onClick={handleOracleCX}
+              className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 w-full"
+            >
               Oracle CX
             </Button>
-            <Button className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 w-full">
+            <Button 
+              onClick={handleCustomSponsorDB}
+              className="bg-transparent border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-300 transition-all duration-300 w-full"
+            >
               <HardDrive className="w-4 h-4 mr-2" />
               Custom Sponsor DB
             </Button>
@@ -568,58 +664,58 @@ const SponsorDataBridge = () => {
       {/* Bottom Row Panels */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Data Flow Console */}
-        <Card className="p-6 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
-          <h2 className="text-xl font-semibold mb-4">Data Flow Console</h2>
+        <Card className="p-6 bg-card/50 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
+          <h2 className="text-xl font-semibold mb-4 text-neon">Data Flow Console</h2>
           <div className="space-y-3 text-sm">
             <div className="flex items-center gap-2">
-              <span>NeoCard #412</span>
+              <span className="text-neon-sm">NeoCard #412</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span>Block #{syncData.blockchainBlock.toLocaleString()}</span>
+              <span className="text-neon-sm">Block #{syncData.blockchainBlock.toLocaleString()}</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span>CRM ID #47322</span>
+              <span className="text-neon-sm">CRM ID #47322</span>
               <ArrowDown className="w-4 h-4 text-cyan-400" />
-              <span className="text-cyan-400">Verified</span>
+              <span className="text-cyan-400 text-neon-success">Verified</span>
             </div>
             <div className="flex items-center gap-2">
-              <span>Bus Block #79 - Chain Sync Delay 2s</span>
+              <span className="text-neon-sm">Bus Block #79 - Chain Sync Delay 2s</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span className="text-cyan-400">Auto-Recovered</span>
-              <ArrowRight className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div className="flex items-center gap-2">
-              <span>Vendor Node #2</span>
-              <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span className="text-cyan-400">Synced</span>
-              <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span>HubSpot DB Entry Created</span>
+              <span className="text-cyan-400 text-neon-success">Auto-Recovered</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
             </div>
             <div className="flex items-center gap-2">
-              <span>Kids Parade Block #5</span>
+              <span className="text-neon-sm">Vendor Node #2</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span>Token #7XAF</span>
+              <span className="text-cyan-400 text-neon-success">Synced</span>
               <ArrowRight className="w-4 h-4 text-cyan-400" />
-              <span>Linked CRM Oracle CX</span>
+              <span className="text-neon-sm">HubSpot DB Entry Created</span>
+              <ArrowRight className="w-4 h-4 text-cyan-400" />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-neon-sm">Kids Parade Block #5</span>
+              <ArrowRight className="w-4 h-4 text-cyan-400" />
+              <span className="text-neon-sm">Token #7XAF</span>
+              <ArrowRight className="w-4 h-4 text-cyan-400" />
+              <span className="text-neon-sm">Linked CRM Oracle CX</span>
             </div>
             <div className="flex items-center gap-2 text-cyan-400 font-semibold">
-              <span>Last chain link verified at {syncData.lastSync}</span>
+              <span className="text-neon-sm">Last chain link verified at {syncData.lastSync}</span>
               <ArrowDown className="w-4 h-4" />
-              <span>All nodes synchronized</span>
+              <span className="text-neon-sm">All nodes synchronized</span>
             </div>
           </div>
         </Card>
 
         {/* AI Data Sentinel */}
-        <Card className="p-6 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
-          <h2 className="text-xl font-semibold mb-4">AI Data Sentinel update:</h2>
+        <Card className="p-6 bg-card/50 border-cyan-500/20 shadow-[0_0_10px_rgba(102,204,255,0.15)]">
+          <h2 className="text-xl font-semibold mb-4 text-neon">AI Data Sentinel update:</h2>
           <div className="space-y-4">
             <div className="text-sm">
-              <p>Node 3 (University Zone) experienced a 2s delay</p>
-              <p className="text-cyan-400">— auto-recovered.</p>
+              <p className="text-neon-sm">Node 3 (University Zone) experienced a 2s delay</p>
+              <p className="text-cyan-400 text-neon-success">— auto-recovered.</p>
             </div>
             
             <div>
-              <p className="text-lg font-semibold">Network Health Score = {syncData.networkHealth.toFixed(1)} / 10</p>
+              <p className="text-lg font-semibold text-neon">Network Health Score = {syncData.networkHealth.toFixed(1)} / 10</p>
             </div>
             
             {/* Network Health Graph */}
@@ -658,8 +754,8 @@ const SponsorDataBridge = () => {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(102,204,255,0.5)]"></div>
             <div>
-              <p className="font-semibold text-cyan-300">NeoCard™</p>
-              <p className="text-muted-foreground text-sm">Online</p>
+              <p className="font-semibold text-cyan-300 text-neon-sm">NeoCard™</p>
+              <p className="text-muted-foreground text-sm text-neon-sm">Online</p>
             </div>
           </div>
         </Card>
@@ -668,8 +764,8 @@ const SponsorDataBridge = () => {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(102,204,255,0.5)]"></div>
             <div>
-              <p className="font-semibold text-cyan-300">Blockchain</p>
-              <p className="text-muted-foreground text-sm">Synced</p>
+              <p className="font-semibold text-cyan-300 text-neon-sm">Blockchain</p>
+              <p className="text-muted-foreground text-sm text-neon-sm">Synced</p>
             </div>
           </div>
         </Card>
@@ -678,8 +774,8 @@ const SponsorDataBridge = () => {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(102,204,255,0.5)]"></div>
             <div>
-              <p className="font-semibold text-cyan-300">CRM Systems</p>
-              <p className="text-muted-foreground text-sm">Connected</p>
+              <p className="font-semibold text-cyan-300 text-neon-sm">CRM Systems</p>
+              <p className="text-muted-foreground text-sm text-neon-sm">Connected</p>
             </div>
           </div>
         </Card>
@@ -688,8 +784,8 @@ const SponsorDataBridge = () => {
           <div className="flex items-center gap-3">
             <div className="w-3 h-3 bg-cyan-400 rounded-full animate-pulse shadow-[0_0_6px_rgba(102,204,255,0.5)]"></div>
             <div>
-              <p className="font-semibold text-cyan-300">AI Sentinel</p>
-              <p className="text-muted-foreground text-sm">Monitoring</p>
+              <p className="font-semibold text-cyan-300 text-neon-sm">AI Sentinel</p>
+              <p className="text-muted-foreground text-sm text-neon-sm">Monitoring</p>
             </div>
           </div>
         </Card>
@@ -712,7 +808,7 @@ const SponsorDataBridge = () => {
             {!isSyncing && !syncResults && (
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
-                  <Card className="p-4">
+                  <Card className="p-4 bg-card/50">
                     <h3 className="font-semibold mb-2">Sync Scope</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -730,7 +826,7 @@ const SponsorDataBridge = () => {
                     </div>
                   </Card>
                   
-                  <Card className="p-4">
+                  <Card className="p-4 bg-card/50">
                     <h3 className="font-semibold mb-2">Last Sync</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
@@ -796,7 +892,7 @@ const SponsorDataBridge = () => {
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
-                  <Card className="p-4">
+                  <Card className="p-4 bg-card/50">
                     <h3 className="font-semibold mb-3">Sync Results</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">

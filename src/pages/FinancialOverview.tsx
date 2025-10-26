@@ -127,18 +127,34 @@ export const FinancialOverview = () => {
   };
 
   const handleFilter = () => {
+    toast({
+      title: "Filter Options",
+      description: "Opening advanced filter options...",
+    });
     setShowFilterDialog(true);
   };
 
   const handleDateFilter = () => {
+    toast({
+      title: "Date Range Filter",
+      description: "Select date range for financial data",
+    });
     setShowDateDialog(true);
   };
 
   const handleCampaignFilter = () => {
+    toast({
+      title: "Campaign Filter",
+      description: "Filter by campaign selection",
+    });
     setShowCampaignDialog(true);
   };
 
   const handleSponsorFilter = () => {
+    toast({
+      title: "Sponsor Filter",
+      description: "Filter by sponsor selection",
+    });
     setShowSponsorDialog(true);
   };
 
@@ -593,8 +609,7 @@ export const FinancialOverview = () => {
           <div className="space-y-2">
             <Button 
               onClick={handleViewLedgerOnChain}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-              disabled={isSyncing}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white text-white font-semibold"
             >
               <Link className="w-4 h-4 mr-2" />
               View Ledger on Chain
@@ -602,20 +617,38 @@ export const FinancialOverview = () => {
             
             <Button 
               onClick={handleDownloadAuditLedgerPDF}
-              className="w-full bg-green-600 hover:bg-green-700 text-white"
+              className="w-full bg-green-600 hover:bg-green-700 text-white text-white font-semibold"
               disabled={isExporting}
             >
-              <Download className="w-4 h-4 mr-2" />
-              {isExporting ? "Generating..." : "Download Audit Ledger PDF"}
+              {isExporting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 mr-2" />
+                  Download Audit Ledger PDF
+                </>
+              )}
             </Button>
             
             <Button 
               onClick={handleExportForTaxAuthority}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white text-white font-semibold"
               disabled={isExporting}
             >
-              <FileText className="w-4 h-4 mr-2" />
-              {isExporting ? "Exporting..." : "Export for Tax Authority"}
+              {isExporting ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Exporting...
+                </>
+              ) : (
+                <>
+                  <FileText className="w-4 h-4 mr-2" />
+                  Export for Tax Authority
+                </>
+              )}
             </Button>
           </div>
         </Card>
@@ -891,6 +924,200 @@ export const FinancialOverview = () => {
               ) : (
                 'Generate PDF'
               )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Filter Dialogs */}
+      <Dialog open={showFilterDialog} onOpenChange={setShowFilterDialog}>
+        <DialogContent className="bg-card border-border">
+          <DialogHeader>
+            <DialogTitle className="text-white">Advanced Filters</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Configure advanced filtering options for financial data
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="p-4 bg-muted/50 rounded-lg">
+              <h4 className="text-white font-semibold mb-2">Available Filters:</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <Filter className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-300">Date Range</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Building className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-300">Campaign Selection</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-300">Sponsor Selection</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-gray-400" />
+                  <span className="text-gray-300">Transaction Status</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowFilterDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={() => setShowFilterDialog(false)} className="bg-blue-600 hover:bg-blue-700 text-white">
+              Apply Filters
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showDateDialog} onOpenChange={setShowDateDialog}>
+        <DialogContent className="bg-card border-border">
+          <DialogHeader>
+            <DialogTitle className="text-white">Date Range Filter</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Select the date range for financial data display
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label className="text-white">Start Date</Label>
+                <Input 
+                  type="date" 
+                  value={dateRange.start}
+                  onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
+                  className="bg-muted text-white"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-white">End Date</Label>
+                <Input 
+                  type="date" 
+                  value={dateRange.end}
+                  onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
+                  className="bg-muted text-white"
+                />
+              </div>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowDateDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => {
+                setShowDateDialog(false);
+                toast({
+                  title: "Date Filter Applied",
+                  description: `Filtering data from ${dateRange.start || 'beginning'} to ${dateRange.end || 'today'}`,
+                });
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Apply Date Filter
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showCampaignDialog} onOpenChange={setShowCampaignDialog}>
+        <DialogContent className="bg-card border-border">
+          <DialogHeader>
+            <DialogTitle className="text-white">Campaign Filter</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Filter financial data by campaign
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label className="text-white">Select Campaign</Label>
+              <Select value={selectedCampaign} onValueChange={setSelectedCampaign}>
+                <SelectTrigger className="bg-muted text-white">
+                  <SelectValue placeholder="All Campaigns" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Campaigns</SelectItem>
+                  <SelectItem value="summer-festival">Summer Festival 2024</SelectItem>
+                  <SelectItem value="kids-parade">Kids Parade</SelectItem>
+                  <SelectItem value="university-zone">University Zone</SelectItem>
+                  <SelectItem value="bus-block">Bus Block Challenge</SelectItem>
+                  <SelectItem value="vendor-node">Vendor Node</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowCampaignDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => {
+                setShowCampaignDialog(false);
+                toast({
+                  title: "Campaign Filter Applied",
+                  description: `Filtering by campaign: ${selectedCampaign || 'All'}`,
+                });
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Apply Filter
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showSponsorDialog} onOpenChange={setShowSponsorDialog}>
+        <DialogContent className="bg-card border-border">
+          <DialogHeader>
+            <DialogTitle className="text-white">Sponsor Filter</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              Filter financial data by sponsor
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label className="text-white">Select Sponsor</Label>
+              <Select value={selectedSponsor} onValueChange={setSelectedSponsor}>
+                <SelectTrigger className="bg-muted text-white">
+                  <SelectValue placeholder="All Sponsors" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Sponsors</SelectItem>
+                  <SelectItem value="techcorp">TechCorp</SelectItem>
+                  <SelectItem value="toyworld">ToyWorld</SelectItem>
+                  <SelectItem value="edufund">EduFund</SelectItem>
+                  <SelectItem value="transitco">TransitCo</SelectItem>
+                  <SelectItem value="marketplace">MarketPlace</SelectItem>
+                  <SelectItem value="cardtech">CardTech</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowSponsorDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => {
+                setShowSponsorDialog(false);
+                toast({
+                  title: "Sponsor Filter Applied",
+                  description: `Filtering by sponsor: ${selectedSponsor || 'All'}`,
+                });
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+            >
+              Apply Filter
             </Button>
           </DialogFooter>
         </DialogContent>

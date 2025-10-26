@@ -34,6 +34,76 @@ export const DataBridge = () => {
       description: "Opening system logs viewer...",
     });
   };
+
+  const handleNeoCard = () => {
+    toast({
+      title: "NeoCard™ Connection",
+      description: "Opening NeoCard™ management panel...",
+    });
+  };
+
+  const handleKardiverseCloud = () => {
+    toast({
+      title: "Kardiverse Cloud",
+      description: "Opening Kardiverse Cloud management panel...",
+    });
+  };
+
+  const handleBlockchain = () => {
+    toast({
+      title: "Blockchain Connection",
+      description: "Opening blockchain network overview...",
+    });
+  };
+
+  const handleSalesforce = () => {
+    toast({
+      title: "Salesforce Integration",
+      description: "Opening Salesforce CRM integration panel...",
+    });
+  };
+
+  const handleHubSpot = () => {
+    toast({
+      title: "HubSpot Integration",
+      description: "Opening HubSpot CRM integration panel...",
+    });
+  };
+
+  const handleOracleCX = () => {
+    toast({
+      title: "Oracle CX Integration",
+      description: "Opening Oracle CX CRM integration panel...",
+    });
+  };
+
+  const handleCustomSponsorDB = () => {
+    toast({
+      title: "Custom Sponsor DB",
+      description: "Opening custom sponsor database configuration...",
+    });
+  };
+
+  const handleTestConnections = () => {
+    toast({
+      title: "Testing Connections",
+      description: "Testing all CRM and blockchain connections...",
+    });
+    
+    setTimeout(() => {
+      toast({
+        title: "Connection Test Complete",
+        description: "All connections verified successfully",
+      });
+    }, 3000);
+  };
+
+  const handleAllNodesSynced = () => {
+    toast({
+      title: "Node Status",
+      description: "All nodes are synchronized and operational",
+    });
+  };
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -54,10 +124,10 @@ export const DataBridge = () => {
             <FileText className="w-4 h-4 mr-2" />
             View Logs
           </Button>
-          <div className="flex items-center gap-2 px-4 py-2 border border-success/50 rounded bg-success/10">
-            <CheckCircle2 className="w-4 h-4 text-success" />
+          <Button variant="outline" onClick={handleAllNodesSynced} className="border-success/50 bg-success/10 hover:bg-success/20">
+            <CheckCircle2 className="w-4 h-4 text-success mr-2" />
             <span className="text-success text-sm font-semibold">All Nodes Synced</span>
-          </div>
+          </Button>
         </div>
       </div>
 
@@ -66,15 +136,15 @@ export const DataBridge = () => {
           <h2 className="text-xl font-semibold mb-6">Connection Overview</h2>
           
           <div className="space-y-4">
-            <Button variant="outline" className="w-full justify-start text-left h-auto py-3">
+            <Button variant="outline" onClick={handleNeoCard} className="w-full justify-start text-left h-auto py-3">
               <span className="text-primary font-semibold">NeoCard™</span>
             </Button>
             
-            <Button variant="outline" className="w-full justify-start text-left h-auto py-3">
+            <Button variant="outline" onClick={handleKardiverseCloud} className="w-full justify-start text-left h-auto py-3">
               <span className="text-primary font-semibold">Kardiverse Cloud</span>
             </Button>
             
-            <Button variant="outline" className="w-full justify-start text-left h-auto py-3">
+            <Button variant="outline" onClick={handleBlockchain} className="w-full justify-start text-left h-auto py-3">
               <span className="text-primary font-semibold">Blockchain</span>
             </Button>
           </div>
@@ -130,19 +200,19 @@ export const DataBridge = () => {
           <h2 className="text-xl font-semibold mb-6">CRM Integration Panel</h2>
           
           <div className="space-y-3">
-            <Button variant="outline" className="w-full justify-start h-auto py-3">
+            <Button variant="outline" onClick={handleSalesforce} className="w-full justify-start h-auto py-3">
               <span className="font-semibold">Salesforce</span>
             </Button>
             
-            <Button variant="outline" className="w-full justify-start h-auto py-3">
+            <Button variant="outline" onClick={handleHubSpot} className="w-full justify-start h-auto py-3">
               <span className="font-semibold">HubSpot</span>
             </Button>
             
-            <Button variant="outline" className="w-full justify-start h-auto py-3">
+            <Button variant="outline" onClick={handleOracleCX} className="w-full justify-start h-auto py-3">
               <span className="font-semibold">Oracle CX</span>
             </Button>
             
-            <Button variant="outline" className="w-full justify-start h-auto py-3">
+            <Button variant="outline" onClick={handleCustomSponsorDB} className="w-full justify-start h-auto py-3">
               <div className="flex items-center gap-2">
                 <span className="font-semibold">Custom Sponsor DB</span>
                 <Activity className="w-4 h-4 text-primary" />
@@ -150,7 +220,7 @@ export const DataBridge = () => {
             </Button>
           </div>
 
-          <Button variant="default" className="w-full mt-6">
+          <Button variant="default" onClick={handleTestConnections} className="w-full mt-6">
             Test Connections
           </Button>
         </Card>

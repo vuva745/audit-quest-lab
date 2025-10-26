@@ -237,6 +237,15 @@ export const EscrowPayments = () => {
             <div className="flex items-center justify-center mb-4">
               <div className="relative w-24 h-24">
                 <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 100 100">
+                  <defs>
+                    <filter id="neon-glow-escrow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
                   {/* M-Pesa segment */}
                   <circle
                     cx="50"
@@ -247,6 +256,8 @@ export const EscrowPayments = () => {
                     strokeWidth="8"
                     strokeDasharray={`${(escrowData.mpesaPercentage / 100) * 251.2} 251.2`}
                     strokeDashoffset="0"
+                    filter="url(#neon-glow-escrow)"
+                    className="drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]"
                   />
                   {/* SEPA segment */}
                   <circle
@@ -258,6 +269,8 @@ export const EscrowPayments = () => {
                     strokeWidth="8"
                     strokeDasharray={`${(escrowData.sepaPercentage / 100) * 251.2} 251.2`}
                     strokeDashoffset={`-${(escrowData.mpesaPercentage / 100) * 251.2}`}
+                    filter="url(#neon-glow-escrow)"
+                    className="drop-shadow-[0_0_8px_rgba(30,64,175,0.6)]"
                   />
                 </svg>
               </div>
