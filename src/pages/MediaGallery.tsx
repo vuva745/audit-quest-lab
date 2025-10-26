@@ -772,7 +772,7 @@ export const MediaGallery = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Media Gallery</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon">Media Gallery</h1>
           <p className="text-muted-foreground">Verification Media Collection</p>
         </div>
         <div className="flex items-center gap-3">

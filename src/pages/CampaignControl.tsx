@@ -331,7 +331,7 @@ const CampaignControl = () => {
     <div className="space-y-6 bg-background">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">{t('dashboard').toUpperCase()}</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon">{t('dashboard').toUpperCase()}</h1>
           <p className="text-xl font-semibold text-foreground">{t('winners')}</p>
         </div>
         <div className="flex items-center gap-2">
@@ -349,7 +349,7 @@ const CampaignControl = () => {
           <StatusBadge status="pending" label={`Pending ${pendingPercentage}%`} />
           <StatusBadge status="rejected" label={`Rejected ${rejectedPercentage}%`} />
         </div>
-        <div className="text-2xl font-bold text-primary">Total Winners = {totalWinners.toLocaleString()}</div>
+        <div className="text-2xl font-bold text-primary text-neon">Total Winners = <span className="text-neon-sm">{totalWinners.toLocaleString()}</span></div>
       </div>
 
       <Card className="p-6 border-primary/30 bg-card/50">
@@ -384,13 +384,13 @@ const CampaignControl = () => {
               ) : (
                 winners.map((winner, i) => (
                 <tr key={i} className="border-b border-primary/20 hover:bg-primary/5 transition-colors">
-                  <td className="py-4 px-4 text-primary font-bold text-lg">{winner.id}</td>
+                  <td className="py-4 px-4 text-primary font-bold text-lg text-neon-sm">{winner.id}</td>
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center">
-                        <span className="text-xs text-primary font-mono">{winner.uid.slice(0, 1)}</span>
+                        <span className="text-xs text-primary font-mono text-neon-sm">{winner.uid.slice(0, 1)}</span>
                       </div>
-                      <span className="text-primary font-mono">{winner.uid}</span>
+                      <span className="text-primary font-mono text-neon-sm">{winner.uid}</span>
                     </div>
                   </td>
                   <td className="py-4 px-4">
@@ -399,7 +399,7 @@ const CampaignControl = () => {
                       {winner.prize.includes('Pizza') && <span>🍕</span>}
                       {winner.prize.includes('iPhone') && <span>📱</span>}
                       {winner.prize.includes('NFT') && <span>🖼️</span>}
-                      <span className={winner.status === 'claimed' ? 'text-success' : winner.status === 'pending' ? 'text-warning' : 'text-muted-foreground'}>
+                      <span className={winner.status === 'claimed' ? 'text-success text-neon-success' : winner.status === 'pending' ? 'text-warning text-neon-warning' : 'text-muted-foreground'}>
                         {winner.prize}
                       </span>
                     </div>
@@ -452,11 +452,11 @@ const CampaignControl = () => {
                     </div>
                   </td>
                   <td className="py-4 px-4">
-                    <span className={winner.status === 'claimed' ? 'text-success font-semibold' : 'text-muted-foreground'}>
-                      {winner.payoutAmount ? `€${winner.payoutAmount}` : '—'}
+                    <span className={winner.status === 'claimed' ? 'text-success font-semibold text-neon-success' : 'text-muted-foreground'}>
+                      {winner.payoutAmount ? `€${winner.payoutAmount.toLocaleString()}` : '—'}
                     </span>
                     {winner.location && (
-                      <div className="text-xs text-muted-foreground mt-1">
+                      <div className="text-xs text-muted-foreground mt-1 text-neon-sm">
                         📍 {winner.location}
                       </div>
                     )}
@@ -472,8 +472,8 @@ const CampaignControl = () => {
           <div className="p-2 rounded-lg bg-success/20">
             <Trophy className="w-6 h-6 text-success" />
           </div>
-          <p className="text-success font-semibold">
-            No duplicate payouts detected — Integrity Score {Math.max(95, 100 - rejectedPercentage)}%
+          <p className="text-success font-semibold text-neon-success">
+            No duplicate payouts detected — Integrity Score <span className="text-neon-success">{Math.max(95, 100 - rejectedPercentage)}%</span>
           </p>
         </Card>
       </Card>
@@ -529,15 +529,15 @@ const CampaignControl = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
                     <span className="text-sm text-muted-foreground">Winner ID:</span>
-                    <p className="font-semibold">{selectedMediaProof.winnerId}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.winnerId}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">UID:</span>
-                    <p className="font-semibold">{selectedMediaProof.uid}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.uid}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Prize:</span>
-                    <p className="font-semibold">{selectedMediaProof.winner.prize}</p>
+                    <p className="font-semibold text-neon-success">{selectedMediaProof.winner.prize}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Status:</span>
@@ -554,14 +554,14 @@ const CampaignControl = () => {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="text-center p-3 bg-success/10 rounded-lg">
-                    <div className="text-2xl font-bold text-success">{selectedMediaProof.verification.confidence}%</div>
+                    <div className="text-2xl font-bold text-success text-neon-success">{selectedMediaProof.verification.confidence}%</div>
                     <div className="text-sm text-muted-foreground">Confidence Score</div>
                   </div>
                   <div className="col-span-2">
                     <span className="text-sm text-muted-foreground">Method:</span>
-                    <p className="font-semibold">{selectedMediaProof.verification.method}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.verification.method}</p>
                     <span className="text-sm text-muted-foreground">Algorithm:</span>
-                    <p className="font-semibold">{selectedMediaProof.verification.algorithm}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.verification.algorithm}</p>
                   </div>
                 </div>
               </Card>
@@ -627,17 +627,17 @@ const CampaignControl = () => {
                   <div className="space-y-2">
                     <div>
                       <span className="text-sm text-muted-foreground">Address:</span>
-                      <p className="font-semibold">{selectedMediaProof.metadata.location.address}</p>
+                      <p className="font-semibold text-neon-sm">{selectedMediaProof.metadata.location.address}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Coordinates:</span>
-                      <p className="font-mono text-sm">
+                      <p className="font-mono text-sm text-neon-sm">
                         {selectedMediaProof.metadata.location.coordinates.lat.toFixed(6)}, {selectedMediaProof.metadata.location.coordinates.lng.toFixed(6)}
                       </p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Accuracy:</span>
-                      <p className="font-semibold">{selectedMediaProof.metadata.location.accuracy}</p>
+                      <p className="font-semibold text-neon-sm">{selectedMediaProof.metadata.location.accuracy}</p>
                     </div>
                   </div>
                 </Card>
@@ -650,19 +650,19 @@ const CampaignControl = () => {
                   <div className="space-y-2">
                     <div>
                       <span className="text-sm text-muted-foreground">Device:</span>
-                      <p className="font-semibold">{selectedMediaProof.metadata.deviceInfo.model}</p>
+                      <p className="font-semibold text-neon-sm">{selectedMediaProof.metadata.deviceInfo.model}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">OS:</span>
-                      <p className="font-semibold">{selectedMediaProof.metadata.deviceInfo.os}</p>
+                      <p className="font-semibold text-neon-sm">{selectedMediaProof.metadata.deviceInfo.os}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Browser:</span>
-                      <p className="font-semibold">{selectedMediaProof.metadata.deviceInfo.browser}</p>
+                      <p className="font-semibold text-neon-sm">{selectedMediaProof.metadata.deviceInfo.browser}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">IP Address:</span>
-                      <p className="font-mono text-sm">{selectedMediaProof.metadata.network.ip}</p>
+                      <p className="font-mono text-sm text-neon-sm">{selectedMediaProof.metadata.network.ip}</p>
                     </div>
                   </div>
                 </Card>
@@ -674,19 +674,19 @@ const CampaignControl = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div>
                     <span className="text-sm text-muted-foreground">Verified By:</span>
-                    <p className="font-semibold">{selectedMediaProof.audit.verifiedBy}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.audit.verifiedBy}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Verification Level:</span>
-                    <p className="font-semibold">{selectedMediaProof.audit.verificationLevel}</p>
+                    <p className="font-semibold text-neon-sm">{selectedMediaProof.audit.verificationLevel}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Risk Score:</span>
-                    <p className="font-semibold text-success">{selectedMediaProof.audit.riskScore}/100</p>
+                    <p className="font-semibold text-success text-neon-success">{selectedMediaProof.audit.riskScore}/100</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Compliance:</span>
-                    <p className="font-semibold text-success">{selectedMediaProof.audit.complianceStatus}</p>
+                    <p className="font-semibold text-success text-neon-success">{selectedMediaProof.audit.complianceStatus}</p>
                   </div>
                 </div>
               </Card>

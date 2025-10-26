@@ -188,7 +188,7 @@ export const EscrowPayments = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white">Escrow & Payments Dashboard - Tab 4</h1>
+          <h1 className="text-3xl font-bold text-white text-neon">Escrow & Payments Dashboard - Tab 4</h1>
           <p className="text-gray-400 mt-2">Overview of sponsor transactions, escrow batch releases, and financial data</p>
         </div>
         
@@ -226,7 +226,7 @@ export const EscrowPayments = () => {
           </div>
           
           <div className="mb-6">
-            <div className="text-3xl font-bold text-green-400 mb-2">
+            <div className="text-3xl font-bold text-green-400 mb-2 text-neon-success">
               €{escrowData.escrowBalance.toFixed(1)}M
             </div>
             <div className="text-sm text-gray-400">Escrow Balance</div>
@@ -269,14 +269,14 @@ export const EscrowPayments = () => {
                   <div className="w-3 h-3 rounded-full bg-blue-400"></div>
                   <span className="text-sm text-gray-300">M-Pesa</span>
                 </div>
-                <span className="text-sm font-semibold text-white">{escrowData.mpesaPercentage}%</span>
+                <span className="text-sm font-semibold text-white text-neon-sm">{escrowData.mpesaPercentage}%</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-blue-800"></div>
                   <span className="text-sm text-gray-300">SEPA</span>
                 </div>
-                <span className="text-sm font-semibold text-white">{escrowData.sepaPercentage}%</span>
+                <span className="text-sm font-semibold text-white text-neon-sm">{escrowData.sepaPercentage}%</span>
               </div>
             </div>
           </div>
@@ -300,11 +300,11 @@ export const EscrowPayments = () => {
             {recentReleases.map((release, index) => (
               <div key={release.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg transition-all duration-300 hover:bg-muted/70">
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-white">{release.sponsor}</div>
+                  <div className="text-sm font-medium text-white text-neon-sm">{release.sponsor}</div>
                   <div className="text-xs text-gray-400">{release.type}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm font-semibold text-white animate-pulse">€{release.amount.toLocaleString()}</div>
+                  <div className="text-sm font-semibold text-white animate-pulse text-neon-success">€{release.amount.toLocaleString()}</div>
                   <div className={`text-xs ${getStatusColor(release.status)} flex items-center gap-1 transition-colors duration-300`}>
                     {getStatusIcon(release.status)}
                     {release.status}
@@ -349,9 +349,9 @@ export const EscrowPayments = () => {
             </div>
             
             <div className="text-sm text-gray-300 mb-2">
-              Batch Approvals: 3 S:
+              Batch Approvals: <span className="text-neon-sm">3 S:</span>
             </div>
-            <div className="text-sm text-gray-400 mb-4">
+            <div className="text-sm text-gray-400 mb-4 text-neon-sm">
               V21 54 10 on proofs
             </div>
           </div>
@@ -399,8 +399,8 @@ export const EscrowPayments = () => {
             
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-400">Blockchain Anchor:</span>
-              <span className="text-sm text-white font-mono">
-                Block #{escrowData.blockchainHeight} - {escrowData.totalTransactions} proofs
+              <span className="text-sm text-white font-mono text-neon-sm">
+                Block #{escrowData.blockchainHeight} - {escrowData.totalTransactions.toLocaleString()} proofs
               </span>
             </div>
           </div>
@@ -409,7 +409,7 @@ export const EscrowPayments = () => {
             onClick={handleViewAllChain}
             className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white"
           >
-            All Chain on Chain: Block #{escrowData.blockchainHeight + 100} - {escrowData.totalTransactions}
+            All Chain on Chain: Block #<span className="text-neon-sm">{escrowData.blockchainHeight + 100}</span> - <span className="text-neon-sm">{escrowData.totalTransactions.toLocaleString()}</span>
           </Button>
         </Card>
 
@@ -428,7 +428,7 @@ export const EscrowPayments = () => {
               <span className="text-sm text-gray-400">Ledger Integrity:</span>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-green-400" />
-                <span className="text-sm text-green-400 font-semibold">
+                <span className="text-sm text-green-400 font-semibold text-neon-success">
                   {escrowData.ledgerIntegrity}% - All signatures verified.
                 </span>
               </div>
@@ -437,7 +437,7 @@ export const EscrowPayments = () => {
             <div className="flex items-center gap-2">
               <Brain className="w-4 h-4 text-blue-400" />
               <span className="text-sm text-gray-300">
-                {escrowData.duplicateTransactions} duplicate transactions were detected across last 24h
+                <span className="text-neon-sm">{escrowData.duplicateTransactions}</span> duplicate transactions were detected across last 24h
               </span>
             </div>
           </div>
@@ -460,15 +460,15 @@ export const EscrowPayments = () => {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">Omega Cola (MPesa):</span>
-                  <span className="text-white">€12,000</span>
+                  <span className="text-white text-neon-sm">€12,000</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-400">NeoFoods (MPesa):</span>
-                  <span className="text-white">€18,000</span>
+                  <span className="text-white text-neon-sm">€18,000</span>
                 </div>
                 <div className="flex justify-between text-sm font-semibold border-t border-border pt-2">
                   <span className="text-white">Total:</span>
-                  <span className="text-green-400">€30,000</span>
+                  <span className="text-green-400 text-neon-success">€30,000</span>
                 </div>
               </div>
             </div>
@@ -515,19 +515,19 @@ export const EscrowPayments = () => {
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-400">Amount Released:</span>
-                    <span className="text-white font-semibold">{releaseResults.releasedAmount}</span>
+                    <span className="text-white font-semibold text-neon-success">{releaseResults.releasedAmount}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Transactions:</span>
-                    <span className="text-white">{releaseResults.transactions}</span>
+                    <span className="text-white text-neon-sm">{releaseResults.transactions}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Block Number:</span>
-                    <span className="text-white font-mono">#{releaseResults.blockNumber}</span>
+                    <span className="text-white font-mono text-neon-sm">#{releaseResults.blockNumber}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Timestamp:</span>
-                    <span className="text-white">{releaseResults.timestamp}</span>
+                    <span className="text-white text-neon-sm">{releaseResults.timestamp}</span>
                   </div>
                 </div>
               </div>
@@ -560,15 +560,15 @@ export const EscrowPayments = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-400">Current Block:</span>
-                  <span className="text-white font-mono">#{escrowData.blockchainHeight}</span>
+                  <span className="text-white font-mono text-neon-sm">#{escrowData.blockchainHeight.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Total Proofs:</span>
-                  <span className="text-white">{escrowData.totalTransactions}</span>
+                  <span className="text-white text-neon-sm">{escrowData.totalTransactions.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Integrity Score:</span>
-                  <span className="text-green-400">{escrowData.ledgerIntegrity}%</span>
+                  <span className="text-green-400 text-neon-success">{escrowData.ledgerIntegrity}%</span>
                 </div>
               </div>
             </div>

@@ -91,6 +91,10 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground antialiased;
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.02) 1px, transparent 1px);
+    background-size: 100px 100px;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -105,6 +109,157 @@ All colors MUST be HSL.
 
   .glow-sm {
     box-shadow: 0 0 10px hsl(var(--primary) / 0.2);
+  }
+
+  /* Subtle Radial Glow - Works for both logo and text */
+  .radial-glow {
+    position: relative;
+  }
+
+  .radial-glow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 140%;
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, hsl(var(--primary) / 0.3) 0%, hsl(var(--primary) / 0.15) 30%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .radial-glow > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Enhanced Neon Glow Effects */
+  .neon-glow {
+    box-shadow: 
+      0 0 10px hsl(var(--primary) / 0.4),
+      0 0 20px hsl(var(--primary) / 0.3),
+      0 0 30px hsl(var(--primary) / 0.2),
+      0 0 40px hsl(var(--primary) / 0.1);
+  }
+
+  .neon-glow-sm {
+    box-shadow: 
+      0 0 5px hsl(var(--primary) / 0.3),
+      0 0 10px hsl(var(--primary) / 0.2);
+  }
+
+  .neon-glow-lg {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.5),
+      0 0 40px hsl(var(--primary) / 0.4),
+      0 0 60px hsl(var(--primary) / 0.3),
+      0 0 80px hsl(var(--primary) / 0.2),
+      0 0 100px hsl(var(--primary) / 0.1);
+  }
+
+  /* Card Glow Effects */
+  .card-glow {
+    box-shadow: 
+      0 0 15px hsl(var(--primary) / 0.2),
+      0 0 30px hsl(var(--primary) / 0.15),
+      inset 0 0 30px hsl(var(--primary) / 0.05);
+  }
+
+  .card-glow-hover {
+    transition: all 0.3s ease;
+  }
+
+  .card-glow-hover:hover {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.3),
+      0 0 40px hsl(var(--primary) / 0.2),
+      0 0 60px hsl(var(--primary) / 0.15),
+      inset 0 0 40px hsl(var(--primary) / 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Neon Text Effects */
+  .text-neon {
+    text-shadow: 
+      0 0 5px hsl(var(--primary) / 0.8),
+      0 0 10px hsl(var(--primary) / 0.6),
+      0 0 15px hsl(var(--primary) / 0.4),
+      0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .text-neon-sm {
+    text-shadow: 
+      0 0 3px hsl(var(--primary) / 0.6),
+      0 0 6px hsl(var(--primary) / 0.4);
+  }
+
+  .text-neon-accent {
+    text-shadow: 
+      0 0 5px hsl(var(--accent) / 0.8),
+      0 0 10px hsl(var(--accent) / 0.6),
+      0 0 15px hsl(var(--accent) / 0.4);
+  }
+
+  .text-neon-success {
+    text-shadow: 
+      0 0 5px hsl(var(--success) / 0.8),
+      0 0 10px hsl(var(--success) / 0.6),
+      0 0 15px hsl(var(--success) / 0.4);
+  }
+
+  .text-neon-warning {
+    text-shadow: 
+      0 0 5px hsl(var(--warning) / 0.8),
+      0 0 10px hsl(var(--warning) / 0.6),
+      0 0 15px hsl(var(--warning) / 0.4);
+  }
+
+  .text-neon-danger {
+    text-shadow: 
+      0 0 5px hsl(var(--danger) / 0.8),
+      0 0 10px hsl(var(--danger) / 0.6),
+      0 0 15px hsl(var(--danger) / 0.4);
+  }
+
+  /* Border Glow */
+  .border-glow {
+    border: 1px solid hsl(var(--primary) / 0.4);
+    box-shadow: 
+      0 0 10px hsl(var(--primary) / 0.2),
+      inset 0 0 10px hsl(var(--primary) / 0.05);
+  }
+
+  .border-glow-accent {
+    border: 1px solid hsl(var(--accent) / 0.4);
+    box-shadow: 
+      0 0 10px hsl(var(--accent) / 0.2),
+      inset 0 0 10px hsl(var(--accent) / 0.05);
+  }
+
+  /* Cyberpunk Grid Pattern */
+  .cyberpunk-grid {
+    background-image: 
+      linear-gradient(hsl(var(--primary) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Glitch Effect */
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+
+  .glitch {
+    animation: glitch 0.3s infinite;
   }
 
   .text-success {
@@ -151,17 +306,82 @@ All colors MUST be HSL.
     animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
+  /* Enhanced Glow Animation */
   .animate-glow {
     animation: glow 2s ease-in-out infinite alternate;
   }
 
   @keyframes glow {
     from {
-      box-shadow: 0 0 5px hsl(var(--primary) / 0.2);
+      box-shadow: 
+        0 0 5px hsl(var(--primary) / 0.2),
+        0 0 10px hsl(var(--primary) / 0.15),
+        0 0 15px hsl(var(--primary) / 0.1);
     }
     to {
-      box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+      box-shadow: 
+        0 0 10px hsl(var(--primary) / 0.4),
+        0 0 20px hsl(var(--primary) / 0.3),
+        0 0 30px hsl(var(--primary) / 0.2),
+        0 0 40px hsl(var(--primary) / 0.1);
     }
+  }
+
+  /* Pulsing Neon */
+  @keyframes pulse-neon {
+    0%, 100% {
+      box-shadow: 
+        0 0 10px hsl(var(--primary) / 0.4),
+        0 0 20px hsl(var(--primary) / 0.3),
+        0 0 30px hsl(var(--primary) / 0.2);
+      opacity: 1;
+    }
+    50% {
+      box-shadow: 
+        0 0 20px hsl(var(--primary) / 0.6),
+        0 0 40px hsl(var(--primary) / 0.5),
+        0 0 60px hsl(var(--primary) / 0.4);
+      opacity: 0.9;
+    }
+  }
+
+  .animate-pulse-neon {
+    animation: pulse-neon 2s ease-in-out infinite;
+  }
+
+  /* Scanning Line Effect */
+  @keyframes scan {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scan-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(to right, 
+      transparent,
+      hsl(var(--primary) / 0.5),
+      transparent
+    );
+    animation: scan 3s linear infinite;
   }
 
   /* Neon Tab Glow Effects */

@@ -71,15 +71,26 @@ export const LiveFeed = ({ activities }: LiveFeedProps) => {
 
   return (
     <div className="space-y-3">
-      {feed.map((item, i) => (
-        <div 
-          key={`${item.time}-${i}`} 
-          className="text-sm border-l-2 border-primary/50 pl-3 py-1 animate-fade-in hover:border-primary transition-all"
-        >
-          <span className="text-primary font-mono">[{item.time}]</span>
-          <span className="text-muted-foreground ml-2">{item.text}</span>
-        </div>
-      ))}
+      {feed.map((item, i) => {
+        // Extract numbers from text for glow effect
+        const parts = item.text.split(/(\d+)/).map((part, idx) => 
+          /\d+/.test(part) ? (
+            <span key={idx} className="text-neon-sm font-semibold">{part}</span>
+          ) : (
+            <span key={idx}>{part}</span>
+          )
+        );
+        
+        return (
+          <div 
+            key={`${item.time}-${i}`} 
+            className="text-sm border-l-2 border-primary/50 pl-3 py-1 animate-fade-in hover:border-primary transition-all"
+          >
+            <span className="text-primary font-mono text-neon-sm">[{item.time}]</span>
+            <span className="text-muted-foreground ml-2">{parts}</span>
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -43,19 +43,36 @@ export const LineChart = ({
           <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
             <path d="M 10 0 L 0 0 0 10" fill="none" stroke="hsl(var(--muted-foreground))" strokeWidth="0.1" opacity="0.3"/>
           </pattern>
+          
+          {/* Neon glow filters */}
+          <filter id="neon-glow-primary" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          
+          <filter id="neon-glow-strong" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
         <rect width="100" height="100" fill="url(#grid)" />
         
-        {/* Line */}
+        {/* Line with neon glow */}
         <path
           d={pathData}
           fill="none"
           stroke="hsl(var(--primary))"
           strokeWidth="0.5"
-          className="drop-shadow-lg"
+          filter="url(#neon-glow-primary)"
         />
         
-        {/* Dots */}
+        {/* Dots with neon glow */}
         {showDots && points.map((point, index) => (
           <circle
             key={index}
@@ -63,15 +80,16 @@ export const LineChart = ({
             cy={point.y}
             r="1.5"
             fill="hsl(var(--primary))"
-            className="drop-shadow-lg animate-pulse"
+            filter="url(#neon-glow-strong)"
+            className="animate-pulse"
           />
         ))}
       </svg>
       
-      {/* Labels */}
+      {/* Labels with subtle glow */}
       <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-muted-foreground mt-2">
         {labels.map((label, index) => (
-          <span key={index} className="text-center">
+          <span key={index} className="text-center text-neon-sm">
             {label}
           </span>
         ))}

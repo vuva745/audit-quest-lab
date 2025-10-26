@@ -433,7 +433,7 @@ export const FinancialOverview = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-white">AUDIT DASHBOARD — TAB 6 Financial Overview</h1>
+          <h1 className="text-3xl font-bold text-white text-neon">AUDIT DASHBOARD — TAB 6 Financial Overview</h1>
         </div>
         
         <div className="flex items-center gap-4">
@@ -521,24 +521,24 @@ export const FinancialOverview = () => {
           
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-white mb-1">
+              <div className="text-2xl font-bold text-white mb-1 text-neon">
                 €{financialData.totalIncome.toFixed(1)}M
               </div>
               <div className="text-sm text-gray-400 mb-1">Total Sponsor Income</div>
-              <div className="text-xs text-green-400">All amounts verified</div>
+              <div className="text-xs text-green-400 text-neon-success">All amounts verified</div>
             </div>
             
             <div className="p-4 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-white mb-1">
+              <div className="text-2xl font-bold text-white mb-1 text-neon">
                 €{financialData.verifiedPayouts.toFixed(1)}M
               </div>
               <div className="text-sm text-gray-400 mb-1">Verified Payouts</div>
-              <div className="text-xs text-green-400">+{financialData.payoutGrowth.toFixed(1)}%</div>
-              <div className="text-xs text-green-400">All amounts verified</div>
+              <div className="text-xs text-green-400 text-neon-success">+{financialData.payoutGrowth.toFixed(1)}%</div>
+              <div className="text-xs text-green-400 text-neon-success">All amounts verified</div>
             </div>
             
             <div className="p-4 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-white mb-1">
+              <div className="text-2xl font-bold text-white mb-1 text-neon-sm">
                 €{financialData.escrowBalance.toFixed(1)}M
               </div>
               <div className="text-sm text-gray-400 mb-1">Escrow Balance</div>
@@ -546,13 +546,13 @@ export const FinancialOverview = () => {
             </div>
             
             <div className="p-4 bg-muted/50 rounded-lg">
-              <div className="text-2xl font-bold text-white mb-1">
+              <div className="text-2xl font-bold text-white mb-1 text-neon-success">
                 +{financialData.roi.toFixed(1)}%
               </div>
               <div className="text-sm text-gray-400 mb-1">ROI</div>
               <div className="flex items-center gap-1">
                 <Award className="w-4 h-4 text-yellow-400" />
-                <span className="text-xs text-yellow-400">Excellent</span>
+                <span className="text-xs text-yellow-400 text-neon-warning">Excellent</span>
               </div>
             </div>
           </div>
@@ -565,27 +565,27 @@ export const FinancialOverview = () => {
           <div className="space-y-3 mb-4">
             <div className="flex justify-between">
               <span className="text-gray-400">Total Transactions:</span>
-              <span className="text-white font-semibold">{financialData.totalTransactions.toLocaleString()}</span>
+              <span className="text-white font-semibold text-neon-sm">{financialData.totalTransactions.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Verified on Blockchain:</span>
-              <span className="text-white font-semibold">
+              <span className="text-white font-semibold text-neon-sm">
                 {financialData.verifiedTransactions.toLocaleString()} ({((financialData.verifiedTransactions / financialData.totalTransactions) * 100).toFixed(1)}%)
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Pending Audit:</span>
-              <span className="text-white font-semibold">{financialData.pendingAudit}</span>
+              <span className="text-white font-semibold text-neon-warning">{financialData.pendingAudit}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Hash Anchor:</span>
-              <span className="text-white font-mono">Block #{financialData.blockchainHeight.toLocaleString()}</span>
+              <span className="text-white font-mono text-neon-sm">Block #{financialData.blockchainHeight.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Integrity:</span>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-green-400"></div>
-                <span className="text-green-400 font-semibold">{financialData.integrityScore}%</span>
+                <span className="text-green-400 font-semibold text-neon-success">{financialData.integrityScore}%</span>
               </div>
             </div>
           </div>
@@ -665,8 +665,8 @@ export const FinancialOverview = () => {
                   <span className="text-sm text-gray-300">Staff & Crew</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-white">23%</span>
-                  <span className="text-sm text-white">€{financialData.staffCrewCosts.toFixed(1)}M</span>
+                  <span className="text-sm font-semibold text-white text-neon-sm">23%</span>
+                  <span className="text-sm text-white text-neon-sm">€{financialData.staffCrewCosts.toFixed(1)}M</span>
                 </div>
               </div>
               
@@ -676,8 +676,8 @@ export const FinancialOverview = () => {
                   <span className="text-sm text-gray-300">Operations / Fleet</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-white">20%</span>
-                  <span className="text-sm text-white">€{financialData.operationsFleetCosts.toFixed(1)}M</span>
+                  <span className="text-sm font-semibold text-white text-neon-sm">20%</span>
+                  <span className="text-sm text-white text-neon-sm">€{financialData.operationsFleetCosts.toFixed(1)}M</span>
                 </div>
               </div>
               
@@ -687,8 +687,8 @@ export const FinancialOverview = () => {
                   <span className="text-sm text-gray-300">Media / Ads</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-white">19%</span>
-                  <span className="text-sm text-white">€{financialData.mediaAdsCosts.toFixed(1)}M</span>
+                  <span className="text-sm font-semibold text-white text-neon-sm">19%</span>
+                  <span className="text-sm text-white text-neon-sm">€{financialData.mediaAdsCosts.toFixed(1)}M</span>
                 </div>
               </div>
               
@@ -698,8 +698,8 @@ export const FinancialOverview = () => {
                   <span className="text-sm text-gray-300">Tech & Maintenance</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-semibold text-white">25%</span>
-                  <span className="text-sm text-white">€{financialData.techMaintenanceCosts.toFixed(1)}M</span>
+                  <span className="text-sm font-semibold text-white text-neon-sm">25%</span>
+                  <span className="text-sm text-white text-neon-sm">€{financialData.techMaintenanceCosts.toFixed(1)}M</span>
                 </div>
               </div>
             </div>
@@ -731,8 +731,8 @@ export const FinancialOverview = () => {
             </div>
           </div>
           <div className="mt-4 p-3 bg-green-900/30 border border-green-500/40 rounded">
-            <p className="text-xs text-green-400 font-semibold">
-              Total Ledger Synced. Block #{financialData.blockchainHeight.toLocaleString()} | {financialData.integrityScore}% Integrity
+            <p className="text-xs text-green-400 font-semibold text-neon-success">
+              Total Ledger Synced. Block #<span className="text-neon-sm">{financialData.blockchainHeight.toLocaleString()}</span> | <span className="text-neon-success">{financialData.integrityScore}%</span> Integrity
             </p>
           </div>
         </div>

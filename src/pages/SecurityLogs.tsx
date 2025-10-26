@@ -193,7 +193,7 @@ Recommendations:
     <div className="space-y-6 bg-background">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Audit Dashboard</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon">Audit Dashboard</h1>
           <p className="text-muted-foreground">Security & System Logs</p>
         </div>
         <Button variant="default" className="glow-sm" onClick={handleExportLogs}>
@@ -264,9 +264,9 @@ Recommendations:
           </div>
           
           <Card className="mt-4 p-4 border-success/50 bg-success/10">
-            <p className="text-sm font-semibold text-success">Vendor #{securityData.currentBlock} Verified</p>
+            <p className="text-sm font-semibold text-success">Vendor #<span className="text-neon-sm">{securityData.currentBlock}</span> Verified</p>
             <p className="text-xs text-muted-foreground">
-              {new Date().toLocaleTimeString()} UTC • Integrity {securityData.integrityScore}%
+              <span className="text-neon-sm">{new Date().toLocaleTimeString()}</span> UTC • Integrity <span className="text-neon-success">{securityData.integrityScore}%</span>
             </p>
           </Card>
         </Card>
@@ -281,12 +281,12 @@ Recommendations:
               <div key={i} className="p-3 border border-primary/30 rounded bg-primary/5 flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-primary font-mono">{login.time}</span>
+                  <span className="text-primary font-mono text-neon-sm">{login.time}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-muted-foreground" />
                   <span className="text-foreground">{login.location}</span>
-                  <span className="text-xs text-muted-foreground">({login.ip})</span>
+                  <span className="text-xs text-muted-foreground text-neon-sm">({login.ip})</span>
                 </div>
               </div>
             ))}
@@ -300,8 +300,8 @@ Recommendations:
             {securityData.hashChecks.map((item, i) => (
               <div key={i} className="p-3 border border-primary/30 rounded bg-primary/5 flex justify-between items-center">
                 <div className="flex items-center gap-2">
-                  <span className="text-primary font-mono">#{item.id}</span>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-primary font-mono text-neon-sm">#{item.id}</span>
+                  <span className="text-xs text-muted-foreground text-neon-sm">
                     {new Date(item.timestamp).toLocaleTimeString()}
                   </span>
                 </div>
@@ -337,12 +337,12 @@ Recommendations:
               <p className="text-xl font-bold text-foreground">Monitoring Mode</p>
               <p className="text-sm text-warning flex items-center gap-2">
                 <Activity className="w-4 h-4 animate-pulse" />
-                Threat Level: {securityData.threatLevel}%
+                Threat Level: <span className="text-neon-warning">{securityData.threatLevel}%</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">
-                Total Logins: {securityData.totalLogins.toLocaleString()} | 
-                Failed: {securityData.failedLogins} | 
-                Alerts: {securityData.systemAlerts}
+                Total Logins: <span className="text-neon-sm">{securityData.totalLogins.toLocaleString()}</span> | 
+                Failed: <span className="text-neon-danger">{securityData.failedLogins}</span> | 
+                Alerts: <span className="text-neon-warning">{securityData.systemAlerts}</span>
               </p>
             </div>
           </div>

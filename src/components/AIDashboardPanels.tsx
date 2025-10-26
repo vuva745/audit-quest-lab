@@ -24,12 +24,12 @@ export const AISummaryForecast = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Increase in valid scans</span>
-          <span className="text-cyan-400 font-bold">+{increaseScans}%</span>
+          <span className="text-cyan-400 font-bold text-neon-sm">+{increaseScans}%</span>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Pattern stability</span>
-          <span className="text-cyan-400 font-bold">{patternStability}%</span>
+          <span className="text-cyan-400 font-bold text-neon-sm">{patternStability}%</span>
         </div>
         
         <div className="flex items-center justify-between">
@@ -39,7 +39,7 @@ export const AISummaryForecast = () => {
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Expected rise by week's end</span>
-          <span className="text-cyan-400 font-bold">+{expectedRise}%</span>
+          <span className="text-cyan-400 font-bold text-neon-sm">+{expectedRise}%</span>
         </div>
       </div>
     </Card>
@@ -73,7 +73,7 @@ export const ProofActivityOverview = () => {
       
       <div className="mt-4 p-3 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
         <p className="text-xs text-white mb-1">Friday</p>
-        <p className="text-2xl font-bold text-white">{(stats.registeredScans % 700) + 200}</p>
+        <p className="text-2xl font-bold text-white text-neon">{(stats.registeredScans % 700) + 200}</p>
       </div>
     </Card>
   );
@@ -106,7 +106,7 @@ export const LiveAIAnomalyFeed = () => {
       <div className="space-y-3">
         {anomalies.map((anomaly, index) => (
           <div key={index} className="flex items-start gap-3">
-            <span className="text-cyan-400 text-sm font-mono">[{anomaly.time}]</span>
+            <span className="text-cyan-400 text-sm font-mono text-neon-sm">[{anomaly.time}]</span>
             <span className="text-white text-sm flex-1">{anomaly.message}</span>
           </div>
         ))}
@@ -132,22 +132,22 @@ export const ForecastSummary = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">ROI Projection</span>
-          <span className="text-green-400 font-bold">+{roiProjection.toFixed(1)}%</span>
+          <span className="text-green-400 font-bold text-neon-success">+{roiProjection.toFixed(1)}%</span>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Expected Proofs</span>
-          <span className="text-cyan-400 font-bold">~{expectedProofs} M</span>
+          <span className="text-cyan-400 font-bold text-neon-sm">~{expectedProofs} M</span>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Integrity</span>
-          <span className="text-green-400 font-bold">{integrity.toFixed(1)}%</span>
+          <span className="text-green-400 font-bold text-neon-success">{integrity.toFixed(1)}%</span>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Alert Likelihood</span>
-          <span className="text-cyan-400 font-bold">{alertLikelihood}%</span>
+          <span className="text-cyan-400 font-bold text-neon-sm">{alertLikelihood}%</span>
         </div>
       </div>
     </Card>
@@ -246,18 +246,18 @@ export const AIComplianceAnalyzer = ({ escrowData, stats }: { escrowData?: any, 
       
       <div className="space-y-4">
         <div className="flex items-center justify-between p-3 bg-green-500/10 rounded-lg border border-green-500/30">
-          <span className="text-white text-sm">Escrow Verification</span>
+          <span className="text-white text-sm text-neon-sm">Escrow Verification</span>
           <CheckCircle className="w-5 h-5 text-green-400" />
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">ROI Impact</span>
-          <span className="text-green-400 font-bold">+{roiImpact.toFixed(1)}%</span>
+          <span className="text-green-400 font-bold text-neon-success">+{roiImpact.toFixed(1)}%</span>
         </div>
         
         <div className="flex items-center justify-between">
           <span className="text-white text-sm">Data Trust Score</span>
-          <span className="text-green-400 font-bold">{dataTrustScore.toFixed(2)}%</span>
+          <span className="text-green-400 font-bold text-neon-success">{dataTrustScore.toFixed(2)}%</span>
         </div>
         
         <Button className="w-full bg-cyan-500 hover:bg-cyan-600 text-white">

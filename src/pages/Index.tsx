@@ -45,11 +45,17 @@ const Index = () => {
       <div className="w-64 bg-card border-r border-cyan-500/20 flex flex-col shadow-[0_0_20px_rgba(102,204,255,0.15)]">
         {/* Logo and Brand */}
         <div className="p-6 border-b border-cyan-500/20">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-teal-400 to-orange-400 flex items-center justify-center shadow-[0_0_15px_rgba(102,204,255,0.3)] border border-cyan-400/50">
-              <span className="text-white font-bold text-xl">K</span>
+          <div className="flex flex-col items-center gap-3 relative">
+            <div className="radial-glow">
+              <img 
+                src="/logo-transparent.png" 
+                alt="Kardiverse Logo" 
+                className="h-16 object-contain"
+              />
             </div>
-            <span className="text-white text-xl font-semibold">{t('dashboard')}</span>
+            <div className="radial-glow">
+              <span className="text-white text-xl font-semibold text-center">{t('dashboard')}</span>
+            </div>
           </div>
         </div>
 
@@ -63,8 +69,8 @@ const Index = () => {
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
                   activeTab === item.id
-                    ? "bg-cyan-500/20 text-cyan-300 shadow-[0_0_20px_rgba(102,204,255,0.5)] border border-cyan-400/50 font-semibold"
-                    : "text-muted-foreground hover:text-foreground hover:bg-cyan-500/10 border border-transparent hover:border-cyan-500/30 hover:shadow-[0_0_12px_rgba(102,204,255,0.25)]"
+                    ? "bg-cyan-500/20 text-cyan-300 neon-glow border-glow border border-cyan-400/50 font-semibold text-neon"
+                    : "text-muted-foreground hover:text-foreground hover:bg-cyan-500/10 border border-transparent hover:border-glow hover:shadow-[0_0_12px_rgba(102,204,255,0.25)]"
                 }`}
               >
                 <Icon className="w-5 h-5" />

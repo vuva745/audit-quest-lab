@@ -20,6 +20,15 @@ export const ProgressRing = ({
   return (
     <div className="relative inline-flex items-center justify-center">
       <svg width={size} height={size} className="-rotate-90">
+        <defs>
+          <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -36,11 +45,12 @@ export const ProgressRing = ({
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
+          filter="url(#neon-glow)"
         />
       </svg>
       {label && (
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-foreground">{label}</span>
+          <span className="text-2xl font-bold text-foreground text-neon-sm">{label}</span>
         </div>
       )}
     </div>

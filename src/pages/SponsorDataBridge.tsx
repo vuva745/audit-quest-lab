@@ -403,7 +403,7 @@ const SponsorDataBridge = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-primary mb-2">Sponsor Data Bridge – Tab 9</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon mb-2">Sponsor Data Bridge – Tab 9</h1>
           <p className="text-muted-foreground text-lg">Live data link between NeCodr™, Blockchain and external CRM systems.</p>
         </div>
         <div className="flex items-center gap-4">

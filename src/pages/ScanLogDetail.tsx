@@ -399,7 +399,7 @@ export const ScanLogDetail = () => {
       {/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Audit Dashboard — Tab 2</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon">Audit Dashboard — Tab 2</h1>
           <p className="text-muted-foreground">Scan Log Detail</p>
         </div>
         <Button 
@@ -442,19 +442,19 @@ export const ScanLogDetail = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-cyan-500/20">
           <div className="text-sm text-gray-400 mb-1">Total Scans</div>
-          <div className="text-2xl font-bold text-white">{totalScans}</div>
+          <div className="text-2xl font-bold text-white text-neon">{totalScans}</div>
         </Card>
         <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-green-500/20">
           <div className="text-sm text-gray-400 mb-1">Verified</div>
-          <div className="text-2xl font-bold text-green-400">{verifiedCount}</div>
+          <div className="text-2xl font-bold text-green-400 text-neon-success">{verifiedCount}</div>
         </Card>
         <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-yellow-500/20">
           <div className="text-sm text-gray-400 mb-1">Pending</div>
-          <div className="text-2xl font-bold text-yellow-400">{pendingCount}</div>
+          <div className="text-2xl font-bold text-yellow-400 text-neon-warning">{pendingCount}</div>
         </Card>
         <Card className="p-4 bg-gradient-to-br from-[#1A1A2E] to-[#2C2C4A] border border-red-500/20">
           <div className="text-sm text-gray-400 mb-1">Rejected</div>
-          <div className="text-2xl font-bold text-red-400">{rejectedCount}</div>
+          <div className="text-2xl font-bold text-red-400 text-neon-danger">{rejectedCount}</div>
         </Card>
       </div>
 
@@ -489,9 +489,9 @@ export const ScanLogDetail = () => {
                       selectedScan === scan.id ? 'bg-primary/10 border-primary/50' : ''
                     }`}
                   >
-                    <td className="py-3 px-4 text-primary font-mono font-semibold">{scan.uid}</td>
-                    <td className="py-3 px-4 text-foreground">{scan.timestamp.split(' ')[0].split('-').slice(1).join('-')} {scan.timestamp.split(' ')[1].substring(0, 5)}</td>
-                    <td className="py-3 px-4 text-foreground font-mono text-sm">{scan.gps}</td>
+                    <td className="py-3 px-4 text-primary font-mono font-semibold text-neon-sm">{scan.uid}</td>
+                    <td className="py-3 px-4 text-foreground text-neon-sm">{scan.timestamp.split(' ')[0].split('-').slice(1).join('-')} {scan.timestamp.split(' ')[1].substring(0, 5)}</td>
+                    <td className="py-3 px-4 text-foreground font-mono text-sm text-neon-sm">{scan.gps}</td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         {getStatusIcon(scan.status)}
@@ -511,27 +511,27 @@ export const ScanLogDetail = () => {
           <div className="space-y-3">
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">UID:</span>
-              <span className="text-primary font-mono font-bold">{currentScan.uid}</span>
+              <span className="text-primary font-mono font-bold text-neon-sm">{currentScan.uid}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Device:</span>
-              <span className="text-foreground">{currentScan.device}</span>
+              <span className="text-foreground text-neon-sm">{currentScan.device}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Layer:</span>
-              <span className="text-foreground">5D Display [L4]</span>
+              <span className="text-foreground text-neon-sm">5D Display [L4]</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Sponsor:</span>
-              <span className="text-foreground font-semibold">{currentScan.sponsor}</span>
+              <span className="text-foreground font-semibold text-neon-sm">{currentScan.sponsor}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Campaign:</span>
-              <span className="text-foreground">Airport Parade</span>
+              <span className="text-foreground text-neon-sm">Airport Parade</span>
             </div>
             <div className="flex justify-between py-2 border-b border-primary/20">
               <span className="text-muted-foreground">Payout Link:</span>
-              <span className="text-success font-semibold">€100 M-Pesa</span>
+              <span className="text-success font-semibold text-neon-success">€100 M-Pesa</span>
             </div>
             {currentScan.status === 'verified' && (
               <div className="flex justify-between py-2 border-b border-primary/20">
@@ -598,17 +598,17 @@ export const ScanLogDetail = () => {
           </div>
           <div className="space-y-1">
             <p className="text-xs text-muted-foreground">
-              Last verified block #{blockHeight}
+              Last verified block #<span className="text-neon-sm">{blockHeight}</span>
             </p>
             <p className="text-xs text-muted-foreground">
               {isSyncing ? syncStatus : "All nodes synced."}
             </p>
             <p className="text-sm font-semibold text-primary">
-              Next verified block #{nextBlockHeight}
+              Next verified block #<span className="text-neon-sm">{nextBlockHeight}</span>
             </p>
             {lastSyncTime && (
               <p className="text-xs text-muted-foreground">
-                Last sync: {lastSyncTime.toLocaleTimeString()}
+                Last sync: <span className="text-neon-sm">{lastSyncTime.toLocaleTimeString()}</span>
               </p>
             )}
             {isSyncing && (
@@ -676,7 +676,7 @@ export const ScanLogDetail = () => {
         {/* Hash Integrity Meter */}
         <Card className="p-4 border-primary/50 bg-primary/10">
             <h3 className="font-semibold text-sm mb-2">Hash Integrity Meter</h3>
-            <div className="text-2xl font-bold text-success mb-2">99.8%</div>
+            <div className="text-2xl font-bold text-success mb-2 text-neon-success">99.8%</div>
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div className="h-full bg-success w-[99.8%] glow-sm" />
             </div>

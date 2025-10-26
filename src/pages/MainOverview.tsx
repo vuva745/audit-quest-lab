@@ -778,7 +778,7 @@ ${generatedCertificate.legalDisclaimer}
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-cyan-400 drop-shadow-[0_0_15px_rgba(102,204,255,0.4)]">{t('dashboard').toUpperCase()}</h1>
+          <h1 className="text-3xl font-bold text-cyan-400 text-neon">{t('dashboard').toUpperCase()}</h1>
           <p className="text-xl font-semibold text-foreground">{t('overview')}</p>
           <div className="flex items-center gap-2 mt-1">
             <div className={`w-2 h-2 rounded-full ${resolvedTheme === 'dark' ? 'bg-gray-400' : 'bg-gray-600'}`} />

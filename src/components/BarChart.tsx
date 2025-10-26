@@ -39,6 +39,15 @@ export const BarChart = ({
           <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
             <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.1"/>
           </pattern>
+          
+          {/* Neon glow filter */}
+          <filter id="bar-neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
         
@@ -67,17 +76,19 @@ export const BarChart = ({
               height={`${bar.barHeight}%`}
               fill={bar.color}
               opacity="0.8"
+              filter="url(#bar-neon-glow)"
               className="transition-all duration-300 hover:opacity-100"
             />
             
-            {/* Value labels */}
+            {/* Value labels with glow */}
             {showValues && (
               <text
                 x={`${bar.x + bar.barWidth * 0.4}%`}
                 y={`${100 - bar.barHeight - 2}%`}
                 textAnchor="middle"
                 className="text-xs fill-current font-medium"
-                opacity="0.8"
+                opacity="0.9"
+                filter="url(#bar-neon-glow)"
               >
                 {bar.value.toLocaleString()}
               </text>

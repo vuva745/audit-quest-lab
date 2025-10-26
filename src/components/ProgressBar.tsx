@@ -20,10 +20,10 @@ export const ProgressBar = ({
   const percentage = Math.min((value / max) * 100, 100);
   
   const colorClasses = {
-    primary: "bg-primary",
-    success: "bg-success", 
-    warning: "bg-warning",
-    danger: "bg-danger"
+    primary: "bg-primary neon-glow-sm",
+    success: "bg-success neon-glow-sm", 
+    warning: "bg-warning neon-glow-sm",
+    danger: "bg-danger neon-glow-sm"
   };
 
   return (
@@ -34,10 +34,10 @@ export const ProgressBar = ({
           <span className="text-foreground font-medium">{value}%</span>
         </div>
       )}
-      <div className="h-2 bg-muted rounded-full overflow-hidden">
+      <div className="h-2 bg-muted rounded-full overflow-hidden border-glow">
         <div
           className={cn(
-            "h-full transition-all duration-1000 ease-out glow-sm",
+            "h-full transition-all duration-1000 ease-out",
             colorClasses[color]
           )}
           style={{ width: `${percentage}%` }}

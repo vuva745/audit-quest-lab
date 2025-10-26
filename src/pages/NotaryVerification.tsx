@@ -322,7 +322,7 @@ ${Math.random().toString(36).substr(2, 100)}
     <div className="space-y-6 bg-background">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Notary Verification</h1>
+          <h1 className="text-3xl font-bold text-primary text-neon">Notary Verification</h1>
           <p className="text-muted-foreground">Certified Legal Proof Layer</p>
         </div>
         <div className="flex gap-3">
@@ -351,7 +351,7 @@ ${Math.random().toString(36).substr(2, 100)}
             
             <div>
               <p className="text-sm text-muted-foreground mb-2">Uploaded On</p>
-              <p className="text-foreground font-mono">2024-10-14 16:20</p>
+              <p className="text-foreground font-mono text-neon-sm">2024-10-14 16:20</p>
             </div>
 
             <Button 
@@ -395,10 +395,10 @@ ${Math.random().toString(36).substr(2, 100)}
                       <span className="text-2xl">{doc.icon}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="text-foreground font-mono text-sm">{doc.id}</span>
+                      <span className="text-foreground font-mono text-sm text-neon-sm">{doc.id}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className="text-muted-foreground font-mono text-sm">{doc.notarized}</span>
+                      <span className="text-muted-foreground font-mono text-sm text-neon-sm">{doc.notarized}</span>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
@@ -446,12 +446,12 @@ ${Math.random().toString(36).substr(2, 100)}
 
             <Card className="p-3 border-primary/50 bg-primary/10">
               <p className="text-xs text-muted-foreground mb-1">Hash Anchor</p>
-              <p className="text-sm font-mono text-primary">Block #{notaryStats.blockchainHeight.toLocaleString()}</p>
+              <p className="text-sm font-mono text-primary text-neon-sm">Block #{notaryStats.blockchainHeight.toLocaleString()}</p>
             </Card>
 
             <Card className="p-3 border-primary/50 bg-primary/10">
               <p className="text-xs text-muted-foreground mb-1">Integrity Score</p>
-              <p className="text-2xl font-bold text-success">{Math.round(notaryStats.integrityScore)}%</p>
+              <p className="text-2xl font-bold text-success text-neon-success">{Math.round(notaryStats.integrityScore)}%</p>
             </Card>
           </div>
 
@@ -489,8 +489,8 @@ ${Math.random().toString(36).substr(2, 100)}
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
               <div>
-                <p className="text-sm font-semibold text-success">{notaryStats.hashMismatches} hash mismatches detected</p>
-                <p className="text-xs text-muted-foreground mt-1">across {notaryStats.totalDocuments} notarized files.</p>
+                <p className="text-sm font-semibold text-success text-neon-success"><span className="text-neon-sm">{notaryStats.hashMismatches}</span> hash mismatches detected</p>
+                <p className="text-xs text-muted-foreground mt-1">across <span className="text-neon-sm">{notaryStats.totalDocuments}</span> notarized files.</p>
               </div>
             </div>
           </Card>
@@ -499,8 +499,8 @@ ${Math.random().toString(36).substr(2, 100)}
             <div className="flex items-start gap-2">
               <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
               <div>
-                <p className="text-sm font-semibold text-success">Next declaration due</p>
-                <p className="text-xs text-muted-foreground mt-1">{new Date(notaryStats.nextDeclaration).toLocaleDateString()}</p>
+                <p className="text-sm font-semibold text-success text-neon-success">Next declaration due</p>
+                <p className="text-xs text-muted-foreground mt-1 text-neon-sm">{new Date(notaryStats.nextDeclaration).toLocaleDateString()}</p>
               </div>
             </div>
           </Card>
@@ -626,19 +626,19 @@ ${Math.random().toString(36).substr(2, 100)}
               {/* Summary */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-3 bg-success/10 rounded-lg">
-                  <div className="text-2xl font-bold text-success">{uploadResults.verification.confidence}%</div>
+                  <div className="text-2xl font-bold text-success text-neon-success">{uploadResults.verification.confidence}%</div>
                   <div className="text-sm text-muted-foreground">Confidence</div>
                 </div>
                 <div className="text-center p-3 bg-primary/10 rounded-lg">
-                  <div className="text-2xl font-bold text-primary">{uploadResults.audit.integrityScore}%</div>
+                  <div className="text-2xl font-bold text-primary text-neon">{uploadResults.audit.integrityScore}%</div>
                   <div className="text-sm text-muted-foreground">Integrity</div>
                 </div>
                 <div className="text-center p-3 bg-warning/10 rounded-lg">
-                  <div className="text-2xl font-bold text-warning">{uploadResults.blockchainAnchor}</div>
+                  <div className="text-2xl font-bold text-warning text-neon-warning">{uploadResults.blockchainAnchor}</div>
                   <div className="text-sm text-muted-foreground">Blockchain</div>
                 </div>
                 <div className="text-center p-3 bg-success/10 rounded-lg">
-                  <div className="text-2xl font-bold text-success">{uploadResults.status.toUpperCase()}</div>
+                  <div className="text-2xl font-bold text-success text-neon-success">{uploadResults.status.toUpperCase()}</div>
                   <div className="text-sm text-muted-foreground">Status</div>
                 </div>
               </div>
@@ -686,11 +686,11 @@ ${Math.random().toString(36).substr(2, 100)}
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Confidence:</span>
-                    <p className="font-semibold text-success">{uploadResults.verification.confidence}%</p>
+                    <p className="font-semibold text-success text-neon-success">{uploadResults.verification.confidence}%</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Timestamp:</span>
-                    <p className="font-semibold">{new Date(uploadResults.verification.timestamp).toLocaleString()}</p>
+                    <p className="font-semibold text-neon-sm">{new Date(uploadResults.verification.timestamp).toLocaleString()}</p>
                   </div>
                 </div>
               </Card>
@@ -830,31 +830,31 @@ ${Math.random().toString(36).substr(2, 100)}
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Block Height:</span>
-                    <p className="font-semibold text-primary">{chainCertificate.blockchain.blockHeight}</p>
+                    <p className="font-semibold text-primary text-neon-sm">{chainCertificate.blockchain.blockHeight.toLocaleString()}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Block Hash:</span>
-                    <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">
+                    <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded text-neon-sm">
                       {chainCertificate.blockchain.blockHash}
                     </p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Merkle Root:</span>
-                    <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded">
+                    <p className="font-mono text-sm break-all bg-muted/50 p-2 rounded text-neon-sm">
                       {chainCertificate.blockchain.merkleRoot}
                     </p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Difficulty:</span>
-                    <p className="font-mono text-sm">{chainCertificate.blockchain.difficulty}</p>
+                    <p className="font-mono text-sm text-neon-sm">{chainCertificate.blockchain.difficulty}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Nonce:</span>
-                    <p className="font-semibold">{chainCertificate.blockchain.nonce.toLocaleString()}</p>
+                    <p className="font-semibold text-neon-sm">{chainCertificate.blockchain.nonce.toLocaleString()}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Timestamp:</span>
-                    <p className="font-semibold">{new Date(chainCertificate.blockchain.timestamp).toLocaleString()}</p>
+                    <p className="font-semibold text-neon-sm">{new Date(chainCertificate.blockchain.timestamp).toLocaleString()}</p>
                   </div>
                 </div>
               </Card>
@@ -872,7 +872,7 @@ ${Math.random().toString(36).substr(2, 100)}
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Patent:</span>
-                    <p className="font-semibold text-primary">{chainCertificate.notary.patent}</p>
+                    <p className="font-semibold text-primary text-neon-sm">{chainCertificate.notary.patent}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Jurisdiction:</span>
@@ -911,12 +911,12 @@ ${Math.random().toString(36).substr(2, 100)}
                       <div className="flex justify-between items-start">
                         <div className="flex-1">
                           <p className="font-semibold">{doc.id}</p>
-                          <p className="text-sm text-muted-foreground">Notarized: {doc.notarized}</p>
-                          <p className="text-sm text-muted-foreground">Status: <span className="text-success">{doc.status}</span></p>
+                          <p className="text-sm text-muted-foreground text-neon-sm">Notarized: {doc.notarized}</p>
+                          <p className="text-sm text-muted-foreground">Status: <span className="text-success text-neon-success">{doc.status}</span></p>
                         </div>
                         <div className="text-right">
                           <p className="text-sm text-muted-foreground">Block Reference:</p>
-                          <p className="font-semibold text-primary">{doc.blockReference}</p>
+                          <p className="font-semibold text-primary text-neon-sm">{doc.blockReference}</p>
                         </div>
                       </div>
                       <div className="mt-2">
@@ -944,19 +944,19 @@ ${Math.random().toString(36).substr(2, 100)}
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Integrity Score:</span>
-                      <p className="font-semibold text-success">{chainCertificate.verification.integrityScore}%</p>
+                      <p className="font-semibold text-success text-neon-success">{chainCertificate.verification.integrityScore.toFixed(2)}%</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Tamper Detection:</span>
-                      <p className="font-semibold text-success">{chainCertificate.verification.tamperDetection}</p>
+                      <p className="font-semibold text-success text-neon-success">{chainCertificate.verification.tamperDetection}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Verification Count:</span>
-                      <p className="font-semibold">{chainCertificate.verification.verificationCount.toLocaleString()}</p>
+                      <p className="font-semibold text-neon-sm">{chainCertificate.verification.verificationCount.toLocaleString()}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Last Verified:</span>
-                      <p className="font-semibold">{new Date(chainCertificate.verification.lastVerified).toLocaleString()}</p>
+                      <p className="font-semibold text-neon-sm">{new Date(chainCertificate.verification.lastVerified).toLocaleString()}</p>
                     </div>
                   </div>
                 </Card>
@@ -977,19 +977,19 @@ ${Math.random().toString(36).substr(2, 100)}
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Audit Status:</span>
-                      <p className="font-semibold text-success">{chainCertificate.compliance.auditStatus}</p>
+                      <p className="font-semibold text-success text-neon-success">{chainCertificate.compliance.auditStatus}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Risk Level:</span>
-                      <p className="font-semibold text-success">{chainCertificate.compliance.riskLevel}</p>
+                      <p className="font-semibold text-success text-neon-success">{chainCertificate.compliance.riskLevel}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Last Audit:</span>
-                      <p className="font-semibold">{new Date(chainCertificate.compliance.lastAudit).toLocaleDateString()}</p>
+                      <p className="font-semibold text-neon-sm">{new Date(chainCertificate.compliance.lastAudit).toLocaleDateString()}</p>
                     </div>
                     <div>
                       <span className="text-sm text-muted-foreground">Next Audit:</span>
-                      <p className="font-semibold">{new Date(chainCertificate.compliance.nextAudit).toLocaleDateString()}</p>
+                      <p className="font-semibold text-neon-sm">{new Date(chainCertificate.compliance.nextAudit).toLocaleDateString()}</p>
                     </div>
                   </div>
                 </Card>
@@ -1008,15 +1008,15 @@ ${Math.random().toString(36).substr(2, 100)}
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Certificate Version:</span>
-                    <p className="font-semibold">{chainCertificate.metadata.certificateVersion}</p>
+                    <p className="font-semibold text-neon-sm">{chainCertificate.metadata.certificateVersion}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Signature Algorithm:</span>
-                    <p className="font-semibold">{chainCertificate.metadata.signatureAlgorithm}</p>
+                    <p className="font-semibold text-neon-sm">{chainCertificate.metadata.signatureAlgorithm}</p>
                   </div>
                   <div>
                     <span className="text-sm text-muted-foreground">Generated At:</span>
-                    <p className="font-semibold">{new Date(chainCertificate.metadata.generatedAt).toLocaleString()}</p>
+                    <p className="font-semibold text-neon-sm">{new Date(chainCertificate.metadata.generatedAt).toLocaleString()}</p>
                   </div>
                 </div>
                 <div className="mt-4">
@@ -1111,28 +1111,28 @@ ${Math.random().toString(36).substr(2, 100)}
                   Verification Information
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <span className="text-sm text-muted-foreground">Notarized On:</span>
-                    <p className="font-semibold font-mono">{viewingDocument.notarized}</p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-muted-foreground">Status:</span>
-                    <p className="font-semibold">
-                      <span className={`text-${viewingDocument.status === 'verified' ? 'success' : 'warning'}`}>
-                        {viewingDocument.status.toUpperCase()}
-                      </span>
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-muted-foreground">Document Hash:</span>
-                    <p className="font-mono text-xs break-all bg-muted/50 p-2 rounded">
-                      {viewingDocument.hash}
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-sm text-muted-foreground">Blockchain Height:</span>
-                    <p className="font-semibold text-primary">Block #{notaryStats.blockchainHeight.toLocaleString()}</p>
-                  </div>
+                                      <div>
+                      <span className="text-sm text-muted-foreground">Notarized On:</span>
+                      <p className="font-semibold font-mono text-neon-sm">{viewingDocument.notarized}</p>
+                    </div>
+                    <div>
+                      <span className="text-sm text-muted-foreground">Status:</span>
+                      <p className="font-semibold">
+                        <span className={`text-${viewingDocument.status === 'verified' ? 'success text-neon-success' : 'warning text-neon-warning'}`}>
+                          {viewingDocument.status.toUpperCase()}
+                        </span>
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-sm text-muted-foreground">Document Hash:</span>
+                      <p className="font-mono text-xs break-all bg-muted/50 p-2 rounded text-neon-sm">
+                        {viewingDocument.hash}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-sm text-muted-foreground">Blockchain Height:</span>
+                      <p className="font-semibold text-primary text-neon-sm">Block #{notaryStats.blockchainHeight.toLocaleString()}</p>
+                    </div>
                 </div>
               </Card>
 

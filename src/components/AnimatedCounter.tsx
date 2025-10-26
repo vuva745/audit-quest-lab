@@ -13,7 +13,7 @@ export const AnimatedCounter = ({
   duration = 2000, 
   prefix = "", 
   suffix = "",
-  className = "" 
+  className = "text-neon" 
 }: AnimatedCounterProps) => {
   const [count, setCount] = useState(0);
 
